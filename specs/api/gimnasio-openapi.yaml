@@ -1,0 +1,392 @@
+openapi: 3.0.3
+info:
+  title: Sistema de Reservas para Gimnasio API
+  version: 1.0.0
+  description: >
+    Contrato REST del Sistema de Reservas para Gimnasio (Spec-First).
+    Estados: domain/lifecycle.md. Catálogos: domain/catalogs.md.
+    Errores: adr/0004.
+servers:
+  - url: http://localhost:8080
+    description: Desarrollo local
+tags:
+  - name: Socios
+    description: Gestión de socios (US01)
+  - name: Clases
+    description: Gestión de clases (US02)
+  - name: Reservas
+    description: Gestión de reservas (US03, US04, US05)
+
+paths:
+  /api/v1/socios:
+    post:
+      tags: [Socios]
+      summary: Registrar socio
+      operationId: registrarSocio
+      x-spec-refs: [RF-01, US01]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrarSocioRequest'
+      responses:
+        '201':
+          description: Socio registrado
+          headers:
+            Location:
+              description: URL del socio creado
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SocioResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '409':
+          description: DNI o email duplicado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/clases:
+    post:
+      tags: [Clases]
+      summary: Crear clase
+      operationId: crearClase
+      x-spec-refs: [RF-02, US02]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CrearClaseRequest'
+      responses:
+        '201':
+          description: Clase creada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClaseResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/clases/{claseId}/reservas:
+    parameters:
+      - $ref: '#/components/parameters/ClaseId'
+    post:
+      tags: [Reservas]
+      summary: Reservar plaza en una clase
+      operationId: reservarPlaza
+      x-spec-refs: [RF-03, US03]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReservarPlazaRequest'
+      responses:
+        '201':
+          description: Reserva confirmada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservaResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '404':
+          description: Socio o clase no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Membresía vencida, aforo completo, solapamiento o clase ya comenzada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/reservas/{reservaId}/cancelar:
+    parameters:
+      - $ref: '#/components/parameters/ReservaId'
+    post:
+      tags: [Reservas]
+      summary: Cancelar una reserva
+      operationId: cancelarReserva
+      x-spec-refs: [RF-04, US04]
+      x-transition: "CONFIRMADA -> CANCELADA"
+      responses:
+        '200':
+          description: Reserva cancelada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservaResponse'
+        '400':
+          $ref: '#/components/responses/ValidationError'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Transición inválida o fuera de plazo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/socios/{socioId}/reservas:
+    parameters:
+      - $ref: '#/components/parameters/SocioId'
+    get:
+      tags: [Reservas]
+      summary: Consultar reservas de un socio
+      operationId: consultarReservas
+      x-spec-refs: [RF-05, US05]
+      parameters:
+        - name: estado
+          in: query
+          schema:
+            $ref: '#/components/schemas/EstadoReserva'
+      responses:
+        '200':
+          description: Lista de reservas del socio
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReservaPageResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+  /api/v1/clases/{claseId}/disponibilidad:
+    parameters:
+      - $ref: '#/components/parameters/ClaseId'
+    get:
+      tags: [Reservas]
+      summary: Consultar disponibilidad de una clase
+      operationId: consultarDisponibilidad
+      x-spec-refs: [RF-05, US05]
+      responses:
+        '200':
+          description: Plazas disponibles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisponibilidadResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+
+components:
+  parameters:
+    SocioId:
+      name: socioId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    ClaseId:
+      name: claseId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+    ReservaId:
+      name: reservaId
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+
+  responses:
+    ValidationError:
+      description: Datos inválidos (VALIDATION_ERROR)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Recurso no encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalError:
+      description: Error inesperado del servidor (INTERNAL_ERROR)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+    EstadoMembresia:
+      type: string
+      enum: [ACTIVA, VENCIDA]
+
+    EstadoClase:
+      type: string
+      enum: [PROGRAMADA, CANCELADA, COMPLETADA]
+
+    EstadoReserva:
+      type: string
+      enum: [CONFIRMADA, CANCELADA]
+
+    RegistrarSocioRequest:
+      type: object
+      required: [dni, nombre, email]
+      properties:
+        dni:
+          type: string
+          pattern: '^\d{8}$'
+        nombre:
+          type: string
+          minLength: 3
+          maxLength: 100
+        email:
+          type: string
+          format: email
+
+    CrearClaseRequest:
+      type: object
+      required: [nombre, instructor, fechaInicio, duracionMinutos, aforoMaximo]
+      properties:
+        nombre:
+          type: string
+          minLength: 3
+          maxLength: 100
+        instructor:
+          type: string
+          minLength: 3
+          maxLength: 100
+        fechaInicio:
+          type: string
+          format: date-time
+        duracionMinutos:
+          type: integer
+          minimum: 1
+          maximum: 180
+        aforoMaximo:
+          type: integer
+          minimum: 1
+          maximum: 50
+
+    ReservarPlazaRequest:
+      type: object
+      required: [socioId]
+      properties:
+        socioId:
+          type: string
+          format: uuid
+
+    SocioResponse:
+      type: object
+      required: [id, dni, nombre, email, membresia, fechaAlta]
+      properties:
+        id:
+          type: string
+          format: uuid
+        dni:
+          type: string
+        nombre:
+          type: string
+        email:
+          type: string
+        membresia:
+          $ref: '#/components/schemas/EstadoMembresia'
+        fechaAlta:
+          type: string
+          format: date-time
+
+    ClaseResponse:
+      type: object
+      required: [id, nombre, instructor, fechaInicio, duracionMinutos, aforoMaximo, estado]
+      properties:
+        id:
+          type: string
+          format: uuid
+        nombre:
+          type: string
+        instructor:
+          type: string
+        fechaInicio:
+          type: string
+          format: date-time
+        duracionMinutos:
+          type: integer
+        aforoMaximo:
+          type: integer
+        estado:
+          $ref: '#/components/schemas/EstadoClase'
+
+    ReservaResponse:
+      type: object
+      required: [id, socioId, claseId, fechaReserva, estado]
+      properties:
+        id:
+          type: string
+          format: uuid
+        socioId:
+          type: string
+          format: uuid
+        claseId:
+          type: string
+          format: uuid
+        fechaReserva:
+          type: string
+          format: date-time
+        estado:
+          $ref: '#/components/schemas/EstadoReserva'
+
+    ReservaPageResponse:
+      type: object
+      required: [items, totalElements]
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReservaResponse'
+        totalElements:
+          type: integer
+          format: int64
+
+    DisponibilidadResponse:
+      type: object
+      required: [claseId, aforoMaximo, reservasConfirmadas, plazasDisponibles]
+      properties:
+        claseId:
+          type: string
+          format: uuid
+        aforoMaximo:
+          type: integer
+        reservasConfirmadas:
+          type: integer
+        plazasDisponibles:
+          type: integer
+
+    ErrorResponse:
+      type: object
+      required: [code, message, details]
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
