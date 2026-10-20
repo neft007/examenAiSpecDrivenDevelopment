@@ -3,7 +3,7 @@
 ### RF-01: Registrar socio
 - Datos:
   - **DNI**: obligatorio, formato `12345678` (8 dígitos). Único en el sistema.
-  - **Nombre**: obligatorio, entre 3 y 100 caracteres.
+  - **Nombre**: obligatorio, entre 3 y 100 caracteres, sin espacios al inicio ni al final.
   - **Email**: obligatorio, formato válido de email. Único en el sistema.
   - **Fecha de alta**: se asigna automáticamente al registrar.
   - **Estado de membresía**: `ACTIVA` o `VENCIDA`. Se asigna por defecto `ACTIVA`.

@@ -128,7 +128,7 @@ classDiagram
 | INV-02 | El DNI es único en el sistema. | `RegistrarSocioService` (application), consultando `SocioPersistencePort.existsByDni`; respaldada por una restricción única en BD | RF-01 | US01 CA-02 |
 | INV-03 | El email es único en el sistema. | `RegistrarSocioService` (application), consultando `SocioPersistencePort.existsByEmail`; respaldada por una restricción única en BD | RF-01 | US01 CA-04 |
 | INV-04 | El email tiene formato válido. | `Email` (al construirse) | RF-01 | US01 CA-05 |
-| INV-05 | El nombre del socio tiene entre 3 y 100 caracteres. | `Socio` | RF-01 | — |
+| INV-05 | El nombre del socio tiene entre 3 y 100 caracteres, sin espacios al inicio ni al final. | `Socio` | RF-01 | — |
 | INV-06 | La fecha de inicio de una clase debe ser futura. | `Clase.crear()` | RF-02 | US02 CA-02 |
 | INV-07 | El aforo máximo está entre 1 y 50. | `Clase.crear()` | RF-02 | US02 CA-03 |
 | INV-08 | La duración de la clase está entre 1 y 180 minutos. | `Clase.crear()` | RF-02 | US02 CA-04 |
