@@ -14,6 +14,9 @@ de verdad: nada se implementa si no está especificado primero.
 8. `specs/api/gimnasio-openapi.yaml` - contrato autoritativo.
 9. `specs/traceability.md` - operación -> caso de uso -> historia -> invariantes -> pruebas.
 
+Registro de cambios de las specs: `specs/CHANGELOG.md` (mantener actualizado cuando cambien las specs).
+No es fuente de verdad: registra cómo y por qué cambiaron las anteriores.
+
 ## Reglas obligatorias
 1. **Si la spec no alcanza, DETENTE.** No inventes campos, reglas, estados, rutas ni códigos de error.
 2. **Contrato 1:1:** el controlador implementa la interfaz generada correspondiente a su tag (`SociosApi`, `ClasesApi`, `ReservasApi`).
