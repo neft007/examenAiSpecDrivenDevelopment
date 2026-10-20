@@ -125,6 +125,9 @@ DNI, email y fechas se generan en cada ejecución, de modo que se puede repetir 
 - [Matriz de trazabilidad](specs/traceability.md)
 - [Convenciones del proyecto](specs/conventions.md)
 - [Tareas pendientes](PENDIENTES.md)
+- [Documentación técnica](docs/tecnica/README.md): resumen derivado de las specs y el código (arquitectura, API, dominio, decisiones, pruebas y operaciones).
+- [Informe de sincronización](docs/sync-report.md): diferencias entre specs e implementación y su resolución.
+- [Colección de Postman](postman/gimnasio-reservas-flujo.postman_collection.json): flujo completo de US01 a US05 y casos de error contra la aplicación en ejecución.
 - [Prompts de IA](prompts/): prompts reutilizables usados con Claude Code durante el desarrollo (dominio, operación, refactorización, documentación).
 
 ## 🤖 Uso de IA
