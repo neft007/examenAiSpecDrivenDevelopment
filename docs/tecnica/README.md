@@ -32,6 +32,11 @@ Una ficha por operación del contrato: entrada, flujo, reglas, errores y pruebas
 
 - [`../sync-report.md`](../sync-report.md): diferencias detectadas entre specs e implementación.
 
+### Registro de cambios de las specs
+
+- [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md): registro de cambios de las specs, con motivo,
+  archivos, compatibilidad del contrato y commits de cada cambio.
+
 ### Entrega final
 
 - [`../entrega/README.md`](../entrega/README.md): resumen de la entrega (estado, cómo ejecutar y
