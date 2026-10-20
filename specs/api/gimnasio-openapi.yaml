@@ -68,6 +68,11 @@ paths:
       responses:
         '201':
           description: Clase creada
+          headers:
+            Location:
+              description: URL de la clase creada
+              schema:
+                type: string
           content:
             application/json:
               schema:
