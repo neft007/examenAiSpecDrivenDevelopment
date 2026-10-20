@@ -148,3 +148,4 @@ classDiagram
 - El dominio no contiene puertos ni conoce la persistencia: solo modelo, reglas y excepciones de dominio. Los puertos se definen en application (ver `architecture.md`).
 - Reconstitución: `Socio.restore(...)`, `Clase.restore(...)` y `Reserva.restore(...)` reconstruyen entidades ya guardadas sin aplicar reglas de transición. Los usan solo los adaptadores de persistencia.
 - Tiempo: los métodos que modifican entidades reciben un `java.time.Clock` para fijar las fechas, de modo que las pruebas controlan el tiempo.
+- El email se almacena con la longitud por defecto de JPA (255 caracteres) porque ninguna spec define una longitud máxima; el formato se valida en el dominio con `Email`.
