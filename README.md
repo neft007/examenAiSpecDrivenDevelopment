@@ -125,6 +125,7 @@ DNI, email y fechas se generan en cada ejecución, de modo que se puede repetir 
 - [Matriz de trazabilidad](specs/traceability.md)
 - [Convenciones del proyecto](specs/conventions.md)
 - [Tareas pendientes](PENDIENTES.md)
+- [Prompts de IA](prompts/): prompts reutilizables usados con Claude Code durante el desarrollo (dominio, operación, refactorización, documentación).
 
 ## 🤖 Uso de IA
 
