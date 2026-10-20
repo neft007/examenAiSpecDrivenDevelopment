@@ -73,6 +73,10 @@ Diferencias que siguen abiertas entre lo que dicen las specs y lo que hace el c�
   cubre todas las filas y el 500 sin detalles internos.
 - **Stack:** Java 25, Spring Boot 4.1.1, openapi-generator 7.22.0 y springdoc 3.1.1 en `pom.xml`, coherentes con
   `tech-stack.md`; la consola H2 y Swagger UI responden en `/h2-console` y `/swagger-ui.html`.
+- **Registro de cambios de las specs:** [`specs/CHANGELOG.md`](../specs/CHANGELOG.md) está actualizado en
+  `3a37cd1`. Tiene 13 entradas, todas con fecha, descripción, motivo, archivos modificados, compatibilidad
+  del contrato y commits. Los 28 commits que modifican `specs/` (`git log -- specs/`, sin contar los del
+  propio `CHANGELOG.md`) aparecen en alguna entrada.
 
 ## Cómo repetir la revisión
 
