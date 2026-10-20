@@ -93,3 +93,8 @@ Una por cada fila de ADR-0004, todas subclases de `DomainException(message, deta
 `ClaseNotFoundException`, `ReservaNotFoundException`, `MembresiaVencidaException`,
 `ClaseYaComenzadaException`, `AforoCompletoException`, `ReservaSolapadaException`,
 `InvalidStateTransitionException` y `CancelacionFueraDePlazoException`.
+
+## Referencias
+
+El registro de cambios de las specs ([`specs/CHANGELOG.md`](../../specs/CHANGELOG.md)) documenta la
+evolución de las invariantes (por ejemplo, INV-16 e INV-17).
