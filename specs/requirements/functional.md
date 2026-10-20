@@ -7,7 +7,7 @@
   - **Email**: obligatorio, formato válido de email. Único en el sistema.
   - **Fecha de alta**: se asigna automáticamente al registrar.
   - **Estado de membresía**: `ACTIVA` o `VENCIDA`. Se asigna por defecto `ACTIVA`.
-- El socio se crea en estado `ACTIVO` (no confundir con membresía).
+- El socio se crea con membresía `ACTIVA`.
 
 ### RF-02: Crear clase
 - Datos:
