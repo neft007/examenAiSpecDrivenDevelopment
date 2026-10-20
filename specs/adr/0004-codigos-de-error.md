@@ -12,7 +12,7 @@ Los criterios de aceptación dicen "se rechaza" sin indicar cómo. El cliente ne
 
 | HTTP | Código de error | Cuándo | Invariantes |
 | :--- | :--- | :--- | :--- |
-| 400 | `VALIDATION_ERROR` | Formato, longitud, rango, valor fuera de catálogo. | INV-01, INV-04, INV-05, INV-06, INV-07, INV-08 |
+| 400 | `VALIDATION_ERROR` | Formato, longitud, rango, valor fuera de catálogo. | INV-01, INV-04, INV-05, INV-06, INV-07, INV-08, INV-16, INV-17 |
 | 404 | `SOCIO_NOT_FOUND` | El socio no existe. | — |
 | 404 | `CLASE_NOT_FOUND` | La clase no existe. | — |
 | 404 | `RESERVA_NOT_FOUND` | La reserva no existe. | — |
