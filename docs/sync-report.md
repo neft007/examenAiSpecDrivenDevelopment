@@ -72,6 +72,10 @@ Recogidos en [`PENDIENTES.md`](../PENDIENTES.md); fuera del alcance de V1.
   que acepta, y en conjunto documentan el flujo SDD seguido durante el desarrollo. Las 13 rutas de
   `specs/` y `docs/` que mencionan existen en el repositorio.
 - **Documentación derivada:** [`docs/tecnica/`](tecnica/README.md) se generó a partir de este mismo estado.
+- **README:** la sección "📚 Documentación" de [`README.md`](../README.md) enlaza la documentación técnica
+  (`docs/tecnica/README.md`), este informe (`docs/sync-report.md`), la colección de Postman
+  (`postman/gimnasio-reservas-flujo.postman_collection.json`) y `prompts/`, además de las specs y
+  `PENDIENTES.md`. Los 17 enlaces de la sección apuntan a archivos o carpetas existentes.
 
 ## Cómo repetir la revisión
 
