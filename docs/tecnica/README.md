@@ -12,7 +12,7 @@
 | [api.md](api.md) | Endpoints, esquemas y respuestas de error. | [`gimnasio-openapi.yaml`](../../specs/api/gimnasio-openapi.yaml), ADR-0004, ADR-0007 |
 | [dominio.md](dominio.md) | Glosario, estados e invariantes. | [`domain-model.md`](../../specs/architecture/domain-model.md), [`lifecycle.md`](../../specs/domain/lifecycle.md), [`catalogs.md`](../../specs/domain/catalogs.md) |
 | [decisiones.md](decisiones.md) | Resumen de los ADR. | [`specs/adr/`](../../specs/adr/) |
-| [pruebas.md](pruebas.md) | Estrategia de pruebas y cobertura por criterio de aceptación. | [`traceability.md`](../../specs/traceability.md), `src/test/java` |
+| [pruebas.md](pruebas.md) | Estrategia de pruebas, cobertura por criterio de aceptación y colección de Postman. | [`traceability.md`](../../specs/traceability.md), `src/test/java`, `postman/` |
 
 ### Operaciones
 
@@ -31,6 +31,12 @@ Una ficha por operación del contrato: entrada, flujo, reglas, errores y pruebas
 ### Sincronización
 
 - [`../sync-report.md`](../sync-report.md): diferencias detectadas entre specs e implementación.
+
+### Colección de Postman
+
+- [`postman/gimnasio-reservas-flujo.postman_collection.json`](../../postman/gimnasio-reservas-flujo.postman_collection.json):
+  flujo completo de US01 a US05 y los casos de error de ADR-0004 contra la aplicación en ejecución.
+  Cómo ejecutarla y qué cubre: [pruebas.md](pruebas.md#colección-de-postman).
 
 ## Cómo se mantiene
 
