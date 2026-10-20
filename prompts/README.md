@@ -17,7 +17,8 @@ confirmación.
 | [`02-refactorizar-desde-diseno.md`](02-refactorizar-desde-diseno.md) | Adaptar el código a un cambio de spec: análisis de impacto y refactor sin cambiar comportamiento, con `mvn test`. | `{{CAMBIO}}`, `{{SPEC_REF}}` |
 | [`03-documentacion-ia.md`](03-documentacion-ia.md) | Generar o actualizar la documentación derivada de `docs/`, citando fuentes y anotando las diferencias en `sync-report.md`. | `{{SECCION}}` |
 
-> **Nota:** `03-documentacion-ia.md` también cubre la documentación de entrega
+> **Nota:** `03-documentacion-ia.md` también cubre el mantenimiento de
+> [`specs/CHANGELOG.md`](../specs/CHANGELOG.md) y la documentación de entrega
 > ([`docs/entrega/`](../docs/entrega/README.md)): README, matriz de trazabilidad y evidencia, generadas
 > a partir de las specs, el código y ejecuciones recientes de `mvn test`, `spec_lint.py` y `spec_sync.py`.
 
