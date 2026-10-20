@@ -10,6 +10,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import pe.edu.galaxy.training.java.sdd.gimnasio.adapter.in.web.generated.model.ErrorResponse;
 import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.AforoCompletoException;
@@ -55,6 +56,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorResponse("VALIDATION_ERROR", "Validation failed",
                         List.of("body: missing or malformed JSON")));
+    }
+
+    // Parámetro de ruta o de consulta con tipo inválido (UUID mal formado, estado fuera de catálogo)
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    ResponseEntity<ErrorResponse> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(new ErrorResponse("VALIDATION_ERROR", "Validation failed",
+                        List.of(ex.getName() + ": invalid value")));
     }
 
     @ExceptionHandler(DniDuplicadoException.class)
