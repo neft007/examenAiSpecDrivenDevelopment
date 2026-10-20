@@ -31,4 +31,3 @@ Cada frontera tiene su propio modelo de datos; el dominio nunca se expone fuera 
 
 - **Positivas:** dominio probable con JUnit puro; cambios en contrato o base de datos quedan aislados en su adaptador.
 - **Negativas:** más clases y mapeos (Request → Command → Entity → Result).
-- **Verificación:** prueba de arquitectura (ArchUnit) con las reglas de la tabla de `architecture.md` §2.
