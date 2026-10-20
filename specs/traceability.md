@@ -4,7 +4,7 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | registrarSocio | RegistrarSocioUseCase | RegistrarSocioService | RF-01 / US01 | INV-01, INV-02, INV-03, INV-04, INV-05 | US01_CA01 a US01_CA05 |
 | crearClase | CrearClaseUseCase | CrearClaseService | RF-02 / US02 | INV-06, INV-07, INV-08 | US02_CA01 a US02_CA04 |
-| reservarPlaza | ReservarPlazaUseCase | ReservarPlazaService | RF-03 / US03 | INV-09, INV-10, INV-11, INV-12 | US03_CA01 a US03_CA05 |
+| reservarPlaza | ReservarPlazaUseCase | ReservarPlazaService | RF-03 / US03 | INV-09, INV-10, INV-11, INV-12 | US03_CA01 a US03_CA05. Nota: US03_CA02 se prueba con un socio en estado VENCIDA creado con restore (no hay flujo de API para cambiarlo en V1). |
 | cancelarReserva | CancelarReservaUseCase | CancelarReservaService | RF-04 / US04 | INV-13, INV-14, INV-15 | US04_CA01 a US04_CA03 |
 | consultarReservas | ConsultarReservasUseCase | ConsultarReservasService | RF-05 / US05 | — | US05_CA01, US05_CA02 |
 | consultarDisponibilidad | ConsultarDisponibilidadUseCase | ConsultarDisponibilidadService | RF-05 / US05 | — | US05_CA03, US05_CA04 |

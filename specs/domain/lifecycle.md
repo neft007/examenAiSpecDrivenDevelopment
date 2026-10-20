@@ -6,6 +6,8 @@
 | Activa | `ACTIVA` | El socio puede reservar clases. |
 | Vencida | `VENCIDA` | El socio no puede reservar clases. |
 
+> **Nota:** En V1, el estado VENCIDA solo se puede asignar mediante Socio.restore(...) o directamente en la base de datos; no hay un flujo de API para cambiar la membresía.
+
 ## 2. Clase (Estado de la clase)
 | Estado | Código | Descripción |
 | :--- | :--- | :--- |
