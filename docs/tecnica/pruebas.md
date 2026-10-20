@@ -108,3 +108,28 @@ completa y en orden):
 > para vencer una membresía ni para crear una clase en el pasado.
 
 `mvn test` debe pasar antes de cada commit (regla 9 de `CLAUDE.md`).
+
+## Validación de specs
+
+> **Fuente:** [`tools/`](../../tools/) (reglas detalladas en [`tools/README.md`](../../tools/README.md)).
+
+Dos scripts de Python 3 (con PyYAML) comprueban la parte del flujo SDD que las pruebas no ven: que las
+specs sean coherentes y que el código y las pruebas las sigan.
+
+| Script | Qué valida | Último resultado |
+| :--- | :--- | :--- |
+| `spec_lint.py` | El contrato OpenAPI contra las specs: YAML y OpenAPI 3.x, enums iguales a `catalogs.md` y `lifecycle.md`, `operationId` y `x-spec-refs`, `ErrorResponse` en las 4xx y `$ref` que resuelven. | OK: 6 operaciones, 0 errores. |
+| `spec_sync.py` | El código y las pruebas contra las specs: cada `operationId` implementado en un controlador, cada criterio con una prueba `USxx_CAyy_`, la convención de nombres y las clases de `traceability.md`. | OK: 6 operaciones, 24 criterios, 110 métodos de prueba, 0 errores. |
+
+```bash
+python tools/spec_lint.py
+python tools/spec_sync.py
+```
+
+Las tres formas de verificar el proyecto se complementan:
+
+| Herramienta | Qué demuestra |
+| :--- | :--- |
+| `./mvnw clean test` | El comportamiento: las reglas y los criterios de aceptación se cumplen. |
+| Colección de Postman | La aplicación en ejecución responde según el contrato. |
+| `spec_lint.py` y `spec_sync.py` | Specs, contrato, código y pruebas siguen sincronizados. |
