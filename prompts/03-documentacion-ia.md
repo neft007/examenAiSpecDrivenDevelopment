@@ -36,11 +36,15 @@ Genera (o actualiza) {{SECCION}} a partir de las specs y el código.
    - Actualiza el índice (docs/tecnica/README.md) y los enlaces entre documentos si añades o
      renombras archivos.
    - Comprueba que todos los enlaces relativos existen.
+   - Mantén actualizado specs/CHANGELOG.md: si desde su última entrada hay commits que cambian
+     specs/ (git log -- specs/), añade una entrada con fecha, descripción, motivo, archivos de spec
+     modificados, compatibilidad del contrato y commits.
 
 4. Si {{SECCION}} es la documentación de entrega (docs/entrega/), también se genera a partir de las
    specs y el código, y debe incluir:
    - README.md: estado del proyecto, cómo ejecutarlo, verificaciones realizadas y enlaces a la
-     documentación técnica y a la matriz.
+     documentación técnica y a la matriz. Puede citar specs/CHANGELOG.md para resumir cómo
+     evolucionaron las specs.
    - matriz-trazabilidad.md: RF -> US -> CA -> INV -> operación -> pruebas concretas por capa,
      basada en specs/traceability.md y en los métodos de prueba reales de src/test/java.
    - evidencia/: la salida real de tools/spec_lint.py y tools/spec_sync.py, y un resumen de
