@@ -78,6 +78,23 @@ class ReservaPersistenceAdapterTest {
     }
 
     @Test
+    void US05_CA03_countsConfirmadaReservasOfClaseForAvailability() {
+        assertThat(adapter.countByClaseIdAndEstado(clase.getId(), EstadoReserva.CONFIRMADA)).isZero();
+
+        Reserva primera = adapter.save(Reserva.crear(SocioId.newId(), clase.getId(), CLOCK));
+        adapter.save(Reserva.crear(SocioId.newId(), clase.getId(), CLOCK));
+        flushAndClear();
+        assertThat(adapter.countByClaseIdAndEstado(clase.getId(), EstadoReserva.CONFIRMADA)).isEqualTo(2);
+
+        // Cancelar libera la plaza: el conteo baja tras guardar la reserva cancelada
+        Reserva cancelada = adapter.findById(primera.getId()).orElseThrow();
+        cancelada.cancelar(clase.getFechaInicio(), CLOCK);
+        adapter.save(cancelada);
+        flushAndClear();
+        assertThat(adapter.countByClaseIdAndEstado(clase.getId(), EstadoReserva.CONFIRMADA)).isEqualTo(1);
+    }
+
+    @Test
     void US03_CA04_detectsActiveReservaOfSocioAtSameStartTime() {
         Clase mismoHorario = claseAdapter.save(Clase.crear("Yoga", "Luis Díaz", TOMORROW, 60, 20, CLOCK));
         adapter.save(Reserva.crear(socioId, clase.getId(), CLOCK));
