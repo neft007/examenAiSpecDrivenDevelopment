@@ -4,8 +4,8 @@ Cambios en `specs/` desde su creación, del más reciente al más antiguo. Cada 
 commits que responden al mismo motivo. Las fechas y los commits salen de `git log -- specs/`.
 
 **Formato de cada entrada:** fecha, descripción, motivo, archivos de spec modificados, compatibilidad
-del contrato y commits previstos. En las entradas ya implementadas, "Commits previstos" lista los commits
-reales: primero los que cambian la spec y después los que la implementan.
+del contrato y commits. "Commits" lista los commits ya realizados: primero los que cambian la spec y
+después los que la implementan.
 
 **Versión del contrato.** `specs/api/gimnasio-openapi.yaml` declara `version: 1.0.0` desde su creación
 (`ad66f17`) y no ha cambiado, porque todos los cambios se hicieron antes de la primera entrega. La
@@ -27,7 +27,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 - **Motivo:** la línea, añadida al resolver D-05, repetía lo que ya decía el dato "Estado de membresía".
 - **Archivos de spec modificados:** `requirements/functional.md`.
 - **Compatibilidad del contrato:** no afecta.
-- **Commits previstos:** `1a0bf35` (spec).
+- **Commits:** `1a0bf35` (spec).
 
 ## 2026-10-20 · Corrección de las diferencias D-01 a D-07 entre specs y código
 
@@ -51,7 +51,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
   `traceability.md`.
 - **Compatibilidad del contrato:** **parche** (D-06): se declara un `400 VALIDATION_ERROR` que la API ya
   devolvía. El resto no afecta al contrato.
-- **Commits previstos:** `f7bc956` (D-01), `dc8fff7` (D-02), `8c1660d` (D-06), `0ee0c77` (D-07),
+- **Commits:** `f7bc956` (D-01), `dc8fff7` (D-02), `8c1660d` (D-06), `0ee0c77` (D-07),
   `7feedaf` (D-03), `4f1e97d` (D-04), `bb0d7e5` (D-05). No requieren cambios de código.
 
 ## 2026-10-20 · Descripción en lenguaje natural de nombre e instructor
@@ -61,7 +61,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 - **Motivo:** Swagger UI mostraba solo el `pattern` `^\S(.*\S)?$`, poco legible.
 - **Archivos de spec modificados:** `api/gimnasio-openapi.yaml`.
 - **Compatibilidad del contrato:** **parche**: solo documentación; la validación no cambia.
-- **Commits previstos:** `6da51ba` (contract).
+- **Commits:** `6da51ba` (contract).
 
 ## 2026-10-20 · Nueva firma de `Reserva.cancelar(fechaInicioClase, clock)`
 
@@ -71,7 +71,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
   reserva no conoce; así la regla vive en el dominio y el servicio solo aporta la fecha.
 - **Archivos de spec modificados:** `architecture/domain-model.md`.
 - **Compatibilidad del contrato:** no afecta.
-- **Commits previstos:** `dd6765b` (design); `85c42b7` (dominio), `9d333f2` (aplicación).
+- **Commits:** `dd6765b` (design); `85c42b7` (dominio), `9d333f2` (aplicación).
 
 ## 2026-10-20 · Cabecera `Location` en la respuesta 201 de `crearClase`
 
@@ -81,7 +81,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
   declaraba.
 - **Archivos de spec modificados:** `api/gimnasio-openapi.yaml`.
 - **Compatibilidad del contrato:** **menor**: se añade una cabecera de respuesta.
-- **Commits previstos:** `09115a3` (contract); `fb7c2ed` (web).
+- **Commits:** `09115a3` (contract); `fb7c2ed` (web).
 
 ## 2026-10-20 · Ajuste de ADR-0004: INV-16 e INV-17 en la fila `VALIDATION_ERROR`
 
@@ -91,7 +91,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
   y el ADR debía reflejarlo.
 - **Archivos de spec modificados:** `adr/0004-codigos-de-error.md`.
 - **Compatibilidad del contrato:** no afecta: el código de error ya existía.
-- **Commits previstos:** `9a96f3f` (design). El mapeo ya estaba en `GlobalExceptionHandler` (`ValidationException`).
+- **Commits:** `9a96f3f` (design). El mapeo ya estaba en `GlobalExceptionHandler` (`ValidationException`).
 
 ## 2026-10-20 · Adición de INV-16 e INV-17: nombre e instructor de Clase
 
@@ -104,7 +104,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
   `architecture/domain-model.md`, `traceability.md`, `api/gimnasio-openapi.yaml`.
 - **Compatibilidad del contrato:** **mayor**: la validación de `CrearClaseRequest` pasa a ser más
   restrictiva.
-- **Commits previstos:** `096bfc3` (spec); `6f84be8` (dominio), `eb9a404` (persistencia),
+- **Commits:** `096bfc3` (spec); `6f84be8` (dominio), `eb9a404` (persistencia),
   `d18453f` (aplicación), `fb7c2ed` (web).
 
 ## 2026-10-20 · Creación de ADR-0007: error interno genérico
@@ -116,7 +116,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
   decisión, Spring respondía con su formato por defecto y podía exponer detalles internos.
 - **Archivos de spec modificados:** `adr/0007-error-interno-generico.md`, `adr/README.md`.
 - **Compatibilidad del contrato:** no afecta: la respuesta `InternalError` ya estaba declarada.
-- **Commits previstos:** `8ce83b9` (design); `1554661` (web, manejador de `Exception`) y `79a7376`
+- **Commits:** `8ce83b9` (design); `1554661` (web, manejador de `Exception`) y `79a7376`
   (web, `GlobalExceptionHandlerTest` con todas las filas).
 
 ## 2026-10-20 · Interfaces generadas por tag
@@ -126,7 +126,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 - **Motivo:** openapi-generator con `useTags=true` genera una interfaz por tag; `GimnasioApi` no existía.
 - **Archivos de spec modificados:** `architecture/tech-stack.md`.
 - **Compatibilidad del contrato:** no afecta.
-- **Commits previstos:** `924bd95` (design); `213de44` (design, fuentes de verdad de `CLAUDE.md`).
+- **Commits:** `924bd95` (design); `213de44` (design, fuentes de verdad de `CLAUDE.md`).
 
 ## 2026-10-19 · Longitud del email en persistencia
 
@@ -134,7 +134,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 - **Motivo:** ninguna spec define una longitud máxima del email, y la persistencia necesitaba un valor.
 - **Archivos de spec modificados:** `architecture/domain-model.md`.
 - **Compatibilidad del contrato:** no afecta.
-- **Commits previstos:** `fe3599d` (design); `30c4cf4` (persistencia).
+- **Commits:** `fe3599d` (design); `30c4cf4` (persistencia).
 
 ## 2026-10-19 · Nombre del socio sin espacios en los extremos (US01 CA-06)
 
@@ -145,7 +145,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
   `user-stories/US01-registrar-socio.md`, `traceability.md`, `api/gimnasio-openapi.yaml`.
 - **Compatibilidad del contrato:** **mayor**: la validación de `RegistrarSocioRequest` pasa a ser más
   restrictiva.
-- **Commits previstos:** `8aac3f2` (RF-01 e INV-05, junto con el dominio de Socio), `a532fa7` (contract),
+- **Commits:** `8aac3f2` (RF-01 e INV-05, junto con el dominio de Socio), `a532fa7` (contract),
   `1b23090` (spec), `a78cb3c` (design); `29de4a9` (test).
 
 ## 2026-10-19 · Cambio de membresía fuera del alcance de V1
@@ -158,7 +158,7 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 - **Archivos de spec modificados:** `architecture/domain-model.md`, `vision.md`, `domain/lifecycle.md`,
   `traceability.md`.
 - **Compatibilidad del contrato:** no afecta.
-- **Commits previstos:** `d721ff0` (design), `0e22dd4` (spec), `f26c6f0` (design); `3d6b3b1` (refactor:
+- **Commits:** `d721ff0` (design), `0e22dd4` (spec), `f26c6f0` (design); `3d6b3b1` (refactor:
   `membresia` final en `Socio`).
 
 ## 2026-10-18 · Specs iniciales y contrato v1.0.0
@@ -169,5 +169,5 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 - **Motivo:** punto de partida del desarrollo Spec-Driven.
 - **Archivos de spec modificados:** todos los de `specs/` salvo ADR-0007 y este registro.
 - **Compatibilidad del contrato:** versión inicial `1.0.0`.
-- **Commits previstos:** `a456ecd` (spec), `0d4de7b` (convenciones), `7a2c18a` (design), `c794302`
+- **Commits:** `a456ecd` (spec), `0d4de7b` (convenciones), `7a2c18a` (design), `c794302`
   (design), `ad66f17` (contract).
