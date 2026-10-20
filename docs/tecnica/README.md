@@ -38,6 +38,16 @@ Una ficha por operación del contrato: entrada, flujo, reglas, errores y pruebas
   flujo completo de US01 a US05 y los casos de error de ADR-0004 contra la aplicación en ejecución.
   Cómo ejecutarla y qué cubre: [pruebas.md](pruebas.md#colección-de-postman).
 
+### Herramientas de validación
+
+- [`tools/`](../../tools/): scripts de Python 3 (con PyYAML) que se ejecutan desde la raíz y devuelven 1 si hay errores.
+  - `spec_lint.py`: valida el contrato OpenAPI contra las specs (enums, `operationId`, `x-spec-refs`,
+    `ErrorResponse` en las 4xx y `$ref`).
+  - `spec_sync.py`: verifica que el código y las pruebas sigan las specs (operaciones implementadas,
+    una prueba por criterio de aceptación, convención de nombres y clases de `traceability.md`).
+
+  Detalle de las reglas en [`tools/README.md`](../../tools/README.md).
+
 ### Prompts de IA
 
 - [`prompts/`](../../prompts/): prompts reutilizables usados con Claude Code durante el desarrollo

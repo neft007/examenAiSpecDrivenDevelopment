@@ -74,8 +74,12 @@ Recogidos en [`PENDIENTES.md`](../PENDIENTES.md); fuera del alcance de V1.
 - **Documentación derivada:** [`docs/tecnica/`](tecnica/README.md) se generó a partir de este mismo estado.
 - **README:** la sección "📚 Documentación" de [`README.md`](../README.md) enlaza la documentación técnica
   (`docs/tecnica/README.md`), este informe (`docs/sync-report.md`), la colección de Postman
-  (`postman/gimnasio-reservas-flujo.postman_collection.json`) y `prompts/`, además de las specs y
-  `PENDIENTES.md`. Los 17 enlaces de la sección apuntan a archivos o carpetas existentes.
+  (`postman/gimnasio-reservas-flujo.postman_collection.json`), `prompts/` y `tools/`, además de las specs
+  y `PENDIENTES.md`. Los 18 enlaces de la sección apuntan a archivos o carpetas existentes.
+- **Herramientas de validación:** se ejecutaron los scripts de [`tools/`](../tools/).
+  `spec_lint.py` da OK con 6 operaciones, 0 errores y 0 advertencias. `spec_sync.py` da OK con
+  6 operaciones, 24 criterios, 110 métodos de prueba y 0 errores; informa además de 22 pruebas sin
+  prefijo `USxx_CAyy_`, que se admiten porque no cubren un criterio concreto.
 
 ## Cómo repetir la revisión
 
