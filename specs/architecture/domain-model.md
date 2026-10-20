@@ -34,7 +34,6 @@ classDiagram
         Instant fechaAlta
         +registrar(dni, nombre, email, clock)$ Socio
         +restore(...)$ Socio
-        +cambiarMembresia(Membresia, clock)
     }
 
     class Clase {
@@ -143,6 +142,7 @@ classDiagram
 ## 4. Decisiones de modelado
 
 - **La membresía es un enum y no un Value Object**: el catálogo es cerrado; si fuera administrable, sería una entidad.
+- **Cambiar la membresía queda fuera del alcance de V1**: ningún requisito, historia de usuario ni regla de ciclo de vida define cómo ni cuándo cambia la membresía de un socio, por lo que `Socio` no expone un método `cambiarMembresia`. Si se necesita, primero se especifica (requisito, historia con criterios de aceptación y transiciones permitidas) y después se agrega al modelo.
 - La unicidad del DNI y del email (INV-02, INV-03) no puede validarla `Socio` solo: un objeto no conoce a los demás socios. Se valida en el servicio de aplicación, consultando el puerto de salida.
 - El aforo y el solapamiento de horarios (INV-11, INV-12) se validan en el servicio de reserva: requieren conocer otras reservas, algo que el agregado `Reserva` no puede hacer por sí solo.
 - El dominio no contiene puertos ni conoce la persistencia: solo modelo, reglas y excepciones de dominio. Los puertos se definen en application (ver `architecture.md`).
