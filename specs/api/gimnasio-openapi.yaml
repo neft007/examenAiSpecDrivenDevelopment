@@ -260,6 +260,7 @@ components:
           pattern: '^\d{8}$'
         nombre:
           type: string
+          description: 3 a 100 caracteres, sin espacios al inicio ni al final.
           minLength: 3
           maxLength: 100
           pattern: '^\S(.*\S)?$'
@@ -273,11 +274,13 @@ components:
       properties:
         nombre:
           type: string
+          description: 3 a 100 caracteres, sin espacios al inicio ni al final.
           minLength: 3
           maxLength: 100
           pattern: '^\S(.*\S)?$'
         instructor:
           type: string
+          description: 3 a 100 caracteres, sin espacios al inicio ni al final.
           minLength: 3
           maxLength: 100
           pattern: '^\S(.*\S)?$'
