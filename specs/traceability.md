@@ -11,15 +11,15 @@
 
 ## Clases de prueba por operación
 
-Dónde estarán las pruebas `USxx_CAyy_...` de cada operación, por capa (`src/test/java/.../gimnasio/`). Las pruebas de dominio son JUnit puro; las de aplicación usan dobles en memoria sin Spring.
+Dónde están las pruebas `USxx_CAyy_...` de cada operación, por capa (`src/test/java/.../gimnasio/`). Las pruebas de dominio son JUnit puro; las de aplicación usan dobles en memoria sin Spring.
 
 | operationId | Dominio (`domain.model`) | Aplicación (`application.service`) | Web (`adapter.in.web`) | Persistencia (`adapter.out.persistence`) |
 | :--- | :--- | :--- | :--- | :--- |
-| registrarSocio | US01RegistrarSocioTest | RegistrarSocioServiceTest | SocioControllerRegisterTest | SocioPersistenceAdapterTest (US01_CA02, US01_CA04) |
-| crearClase | US02CrearClaseTest | CrearClaseServiceTest | ClaseControllerCreateTest | — |
-| reservarPlaza | US03ReservarPlazaTest | ReservarPlazaServiceTest | ReservaControllerReservarTest | ReservaPersistenceAdapterTest (US03_CA03, US03_CA04) |
+| registrarSocio | US01RegistrarSocioTest | RegistrarSocioServiceTest | SocioControllerRegisterTest | SocioPersistenceAdapterTest (US01_CA01, US01_CA02, US01_CA04) |
+| crearClase | US02CrearClaseTest | CrearClaseServiceTest | ClaseControllerCreateTest | ClasePersistenceAdapterTest (US02_CA01) |
+| reservarPlaza | US03ReservarPlazaTest | ReservarPlazaServiceTest | ReservaControllerReservarTest | ReservaPersistenceAdapterTest (US03_CA01, US03_CA03, US03_CA04) |
 | cancelarReserva | US04CancelarReservaTest | CancelarReservaServiceTest | ReservaControllerCancelarTest | — |
-| consultarReservas | — | ConsultarReservasServiceTest | ReservaControllerConsultarTest | — |
+| consultarReservas | — | ConsultarReservasServiceTest | ReservaControllerConsultarTest | ReservaPersistenceAdapterTest (`findBySocioId`) |
 | consultarDisponibilidad | — | ConsultarDisponibilidadServiceTest | DisponibilidadControllerTest | ReservaPersistenceAdapterTest (US05_CA03) |
 
 ## Pruebas de reglas transversales
@@ -27,4 +27,4 @@ Dónde estarán las pruebas `USxx_CAyy_...` de cada operación, por capa (`src/t
 | Regla | Clase de prueba |
 | :--- | :--- |
 | ADR-0004 y ADR-0007: cada fila HTTP + `code` e `INTERNAL_ERROR` sin detalles internos | GlobalExceptionHandlerTest |
-| Arranque del contexto completo | GimnasioApplicationTests |
+| Arranque del contexto completo | GimnasioReservasApplicationTests |
