@@ -38,6 +38,12 @@ Una ficha por operación del contrato: entrada, flujo, reglas, errores y pruebas
   flujo completo de US01 a US05 y los casos de error de ADR-0004 contra la aplicación en ejecución.
   Cómo ejecutarla y qué cubre: [pruebas.md](pruebas.md#colección-de-postman).
 
+### Prompts de IA
+
+- [`prompts/`](../../prompts/): prompts reutilizables usados con Claude Code durante el desarrollo
+  (dominio, operación, refactorización, documentación). Cada prompt indica cuándo usarlo y las
+  variables que acepta (`{{HISTORIA}}`, `{{OPERACION}}`…).
+
 ## Cómo se mantiene
 
 1. Primero cambia la spec (`specs/`), después el código y por último esta documentación.
