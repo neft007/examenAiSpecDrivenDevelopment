@@ -18,7 +18,7 @@ public class Socio {
     private final Dni dni;
     private final String nombre;
     private final Email email;
-    private Membresia membresia;
+    private final Membresia membresia;
     private final Instant fechaAlta;
 
     private Socio(SocioId id, Dni dni, String nombre, Email email, Membresia membresia, Instant fechaAlta) {
