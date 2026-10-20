@@ -170,7 +170,7 @@ La carpeta [`prompts/`](prompts/) contiene los prompts reutilizables que se usar
 | [`00-implementar-dominio.md`](prompts/00-implementar-dominio.md) | Implementar la capa de dominio de una historia: agregado, Value Objects, enums, excepciones e invariantes, con sus pruebas `USxx_CAyy_`. |
 | [`01-implementar-operacion.md`](prompts/01-implementar-operacion.md) | Implementar una operación del contrato de punta a punta: puertos, servicio, persistencia, web y pruebas por capa. |
 | [`02-refactorizar-desde-diseno.md`](prompts/02-refactorizar-desde-diseno.md) | Adaptar el código a un cambio de spec: análisis de impacto y refactor sin cambiar comportamiento, con `mvn test`. |
-| [`03-documentacion-ia.md`](prompts/03-documentacion-ia.md) | Generar o actualizar la documentación derivada de `docs/`, citando fuentes y anotando las diferencias en `sync-report.md`. |
+| [`03-documentacion-ia.md`](prompts/03-documentacion-ia.md) | Generar o actualizar la documentación derivada de `docs/`, citando fuentes y anotando las diferencias en `sync-report.md`. También cubre la documentación de entrega (`docs/entrega/`): README, matriz de trazabilidad y evidencia. |
 
 Estos prompts reflejan el flujo SDD seguido durante el desarrollo: primero se leen las specs, se detiene el trabajo si no alcanzan, se implementa capa por capa con una prueba por criterio de aceptación y la documentación se deriva de las specs y el código.
 
