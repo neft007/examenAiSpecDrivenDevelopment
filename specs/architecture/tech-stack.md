@@ -11,7 +11,7 @@ Agregar o cambiar una tecnología requiere un ADR.
 | Build | Maven con wrapper (`./mvnw`) | Compilación, generación y pruebas | — |
 | Contrato | OpenAPI 3.0.3 | `specs/api/gimnasio-openapi.yaml` | — |
 | Pruebas | JUnit 6 (Jupiter) + Spring Boot Test | Dominio sin Spring; adaptadores con Spring | ADR-0006 |
-| Generación de API | openapi-generator ≥ 7.22 (`spring`, `interfaceOnly`, `useSpringBoot4`, `useJackson3`) | `GimnasioApi` y DTO web en `adapter.in.web.generated` | ADR-0006 |
+| Generación de API | openapi-generator ≥ 7.22 (`spring`, `interfaceOnly`, `useSpringBoot4`, `useJackson3`) | Las interfaces por tag (`SociosApi`, `ClasesApi`, `ReservasApi`) y DTO web en `adapter.in.web.generated` | ADR-0006 |
 | Documentación de la API | springdoc-openapi 3.x (`springdoc-openapi-starter-webmvc-ui`) | Swagger UI que carga el contrato autoritativo (`/gimnasio-openapi.yaml`) | — |
 
 ## Restricciones

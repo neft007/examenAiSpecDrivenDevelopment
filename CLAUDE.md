@@ -16,7 +16,7 @@ de verdad: nada se implementa si no está especificado primero.
 
 ## Reglas obligatorias
 1. **Si la spec no alcanza, DETENTE.** No inventes campos, reglas, estados, rutas ni códigos de error.
-2. **Contrato 1:1:** el controlador implementa la interfaz generada `GimnasioApi`.
+2. **Contrato 1:1:** el controlador implementa la interfaz generada correspondiente a su tag (`SociosApi`, `ClasesApi`, `ReservasApi`).
 3. **Arquitectura hexagonal (ADR-0001):**
    - `domain`: Java puro. Sin Spring, sin JPA, sin puertos. Las reglas viven aquí.
    - `application.port.in`: interfaces `*UseCase` + Commands, Queries y Results (`record`).
