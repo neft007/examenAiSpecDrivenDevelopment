@@ -62,6 +62,7 @@ desde ese commit solo ha cambiado documentación.
 | [`matriz-trazabilidad.md`](matriz-trazabilidad.md) | RF → US → CA → INV → operación → pruebas concretas. |
 | [`docs/tecnica/`](../tecnica/README.md) | Arquitectura, API, dominio, decisiones, pruebas y una ficha por operación. |
 | [`docs/sync-report.md`](../sync-report.md) | Diferencias specs ↔ implementación y resultados de las verificaciones. |
+| [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md) | Registro de cambios de las specs: motivo, archivos, compatibilidad del contrato y commits de cada cambio. |
 | [`specs/traceability.md`](../../specs/traceability.md) | Matriz de trazabilidad de la spec (fuente de la matriz de esta entrega). |
 | [`tools/`](../../tools/README.md) | Scripts de validación `spec_lint.py` y `spec_sync.py`. |
 | [`postman/`](../../postman/gimnasio-reservas-flujo.postman_collection.json) | Colección con el flujo completo y los casos de error. |
