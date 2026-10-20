@@ -3,14 +3,14 @@
 ## Cuándo usarlo
 
 Para crear o actualizar la documentación de `docs/` a partir de las specs y el código, por ejemplo
-al cerrar una historia o después de corregir specs. La documentación derivada resume; nunca sustituye
-a `specs/`.
+al cerrar una historia, después de corregir specs o al preparar la entrega (`docs/entrega/`). La
+documentación derivada resume; nunca sustituye a `specs/`.
 
 ## Variables
 
 | Variable | Qué poner | Ejemplo |
 | :--- | :--- | :--- |
-| `{{SECCION}}` | Documento o carpeta de `docs/` que se genera o actualiza. | `docs/tecnica/operaciones/reservarPlaza.md`, `docs/sync-report.md` |
+| `{{SECCION}}` | Documento o carpeta de `docs/` que se genera o actualiza. | `docs/tecnica/operaciones/reservarPlaza.md`, `docs/sync-report.md`, `docs/entrega/` |
 
 ## Prompt
 
@@ -37,6 +37,17 @@ Genera (o actualiza) {{SECCION}} a partir de las specs y el código.
      renombras archivos.
    - Comprueba que todos los enlaces relativos existen.
 
-4. No hace falta ejecutar mvn test si solo cambia Markdown. Propón el commit con prefijo docs:
+4. Si {{SECCION}} es la documentación de entrega (docs/entrega/), también se genera a partir de las
+   specs y el código, y debe incluir:
+   - README.md: estado del proyecto, cómo ejecutarlo, verificaciones realizadas y enlaces a la
+     documentación técnica y a la matriz.
+   - matriz-trazabilidad.md: RF -> US -> CA -> INV -> operación -> pruebas concretas por capa,
+     basada en specs/traceability.md y en los métodos de prueba reales de src/test/java.
+   - evidencia/: la salida real de tools/spec_lint.py y tools/spec_sync.py, y un resumen de
+     target/surefire-reports por capa y por clase.
+   Vuelve a ejecutar ./mvnw clean test y los scripts justo antes de generarla, extrae las cifras y
+   los nombres de las pruebas con un script (no a mano) e indica el commit sobre el que se generó.
+
+5. No hace falta ejecutar mvn test si solo cambia Markdown. Propón el commit con prefijo docs:
    y no lo hagas hasta que lo confirme.
 ```
