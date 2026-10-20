@@ -8,10 +8,10 @@ de verdad: nada se implementa si no está especificado primero.
 2. `specs/requirements/functional.md` - RF-01 a RF-05.
 3. `specs/domain/lifecycle.md` y `specs/domain/catalogs.md` - estados y catálogos.
 4. `specs/user-stories/` - criterios de aceptación (CA) por historia.
-5. `specs/architecture/domain-model.md` - invariantes (se crearán después).
+5. `specs/architecture/domain-model.md` - invariantes.
 6. `specs/architecture/architecture.md` - capas, puertos, modelos por frontera y paquetes.
 7. `specs/adr/` - decisiones aceptadas; no contradecirlas.
-8. `specs/api/catalog-openapi.yaml` - contrato autoritativo (se creará después).
+8. `specs/api/gimnasio-openapi.yaml` - contrato autoritativo.
 9. `specs/traceability.md` - operación -> caso de uso -> historia -> invariantes -> pruebas.
 
 ## Reglas obligatorias
