@@ -81,4 +81,30 @@ El reparto por operación está en [`traceability.md`](../../specs/traceability.
 ./mvnw clean test
 ```
 
+## Colección de Postman
+
+> **Fuente:** [`postman/gimnasio-reservas-flujo.postman_collection.json`](../../postman/gimnasio-reservas-flujo.postman_collection.json).
+
+La colección **Gimnasio Reservas - Flujo completo** complementa las pruebas automáticas con pruebas
+manuales o de humo contra la aplicación en ejecución. No forma parte de `mvn test`.
+
+| Carpeta | Peticiones | Qué cubre |
+| :--- | :---: | :--- |
+| 1. Flujo principal | 8 | Registrar socio → crear clase → reservar → consultar reservas (con y sin filtro) → disponibilidad → cancelar → la plaza queda libre. |
+| 2. a 6. Errores por historia | 27 | Los errores de ADR-0004 de US01 a US05: duplicados, `VALIDATION_ERROR`, `AFORO_COMPLETO`, `RESERVA_SOLAPADA`, `INVALID_STATE_TRANSITION`, `CANCELACION_FUERA_DE_PLAZO` y los tres `*_NOT_FOUND`. |
+
+Cada petición tiene aserciones `pm.test` sobre el código HTTP y el body. Las peticiones se encadenan
+con las variables de colección `socioId`, `claseId` y `reservaId`. DNI, email y fechas se generan en
+cada ejecución, así que se puede repetir sin reiniciar la aplicación.
+
+**Ejecución** (con la aplicación levantada en `http://localhost:8080`; la colección se ejecuta
+completa y en orden):
+
+- **Postman:** importar el archivo y ejecutarlo con el Runner.
+- **newman:** `npx newman run postman/gimnasio-reservas-flujo.postman_collection.json`
+
+> **Nota:** `MEMBRESIA_VENCIDA` (US03 CA-02) y `CLASE_YA_COMENZADA` (US03 CA-05) solo se cubren en las
+> pruebas automáticas (`ReservarPlazaServiceTest`, `ReservaControllerReservarTest`): en V1 no hay API
+> para vencer una membresía ni para crear una clase en el pasado.
+
 `mvn test` debe pasar antes de cada commit (regla 9 de `CLAUDE.md`).
