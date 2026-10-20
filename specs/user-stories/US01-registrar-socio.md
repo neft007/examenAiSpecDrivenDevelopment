@@ -14,3 +14,4 @@ Referencias: RF-01, `domain/catalogs.md`
   entonces se rechaza indicando el formato esperado.
 - **CA-04:** Dado un email que ya existe, cuando registro el socio, entonces se rechaza indicando que el email está duplicado.
 - **CA-05:** Dado un email con formato inválido, cuando registro el socio, entonces se rechaza.
+- **CA-06:** Dado un nombre con menos de 3 caracteres, más de 100, o con espacios al inicio o al final, cuando registro el socio, entonces se rechaza.
