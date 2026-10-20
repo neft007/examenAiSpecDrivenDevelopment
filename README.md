@@ -148,7 +148,7 @@ Devuelven `0` si todo está bien y `1` si hay errores. El detalle de cada regla 
 - [Informe de sincronización](docs/sync-report.md): diferencias entre specs e implementación y su resolución.
 - [Colección de Postman](postman/gimnasio-reservas-flujo.postman_collection.json): flujo completo de US01 a US05 y casos de error contra la aplicación en ejecución.
 - [Herramientas de validación](tools/): `spec_lint.py` y `spec_sync.py`.
-- [Prompts de IA](prompts/): prompts reutilizables usados con Claude Code durante el desarrollo (dominio, operación, refactorización, documentación).
+- [Prompts de IA](prompts/README.md): prompts reutilizables usados con Claude Code durante el desarrollo (dominio, operación, refactorización, documentación).
 
 ## 🤖 Uso de IA
 
@@ -163,7 +163,7 @@ La guía para la IA está en [`CLAUDE.md`](CLAUDE.md).
 
 ### Prompts de IA
 
-La carpeta [`prompts/`](prompts/) contiene los prompts reutilizables que se usaron con Claude Code. Cada uno indica cuándo usarlo y lleva variables (`{{HISTORIA}}`, `{{OPERACION}}`…) para aplicarlo a otra historia u operación:
+La carpeta [`prompts/`](prompts/README.md) contiene los prompts reutilizables que se usaron con Claude Code. Cada uno indica cuándo usarlo y lleva variables (`{{HISTORIA}}`, `{{OPERACION}}`…) para aplicarlo a otra historia u operación:
 
 | Prompt | Para qué sirve |
 | :--- | :--- |

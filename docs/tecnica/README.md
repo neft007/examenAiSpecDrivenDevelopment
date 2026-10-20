@@ -57,7 +57,7 @@ Una ficha por operación del contrato: entrada, flujo, reglas, errores y pruebas
 
 ### Prompts de IA
 
-- [`prompts/`](../../prompts/): prompts reutilizables usados con Claude Code durante el desarrollo
+- [`prompts/`](../../prompts/README.md): prompts reutilizables usados con Claude Code durante el desarrollo
   (dominio, operación, refactorización, documentación). Cada prompt indica cuándo usarlo y las
   variables que acepta (`{{HISTORIA}}`, `{{OPERACION}}`…).
 
