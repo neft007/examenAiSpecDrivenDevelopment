@@ -60,7 +60,7 @@ classDiagram
         EstadoReserva estado
         +crear(socioId, claseId, clock)$ Reserva
         +restore(...)$ Reserva
-        +cancelar(clock)
+        +cancelar(fechaInicioClase, clock)
     }
 
     class SocioId {
