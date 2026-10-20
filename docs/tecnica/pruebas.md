@@ -136,3 +136,6 @@ Las tres formas de verificar el proyecto se complementan:
 
 Los prompts reutilizables usados durante el desarrollo están documentados en
 [`prompts/README.md`](../../prompts/README.md).
+
+El registro de cambios de las specs ([`specs/CHANGELOG.md`](../../specs/CHANGELOG.md)) documenta la
+evolución de las specs y su compatibilidad con el contrato.
