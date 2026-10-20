@@ -142,6 +142,7 @@ Devuelven `0` si todo está bien y `1` si hay errores. El detalle de cada regla 
 - [Contrato OpenAPI](specs/api/gimnasio-openapi.yaml)
 - [Matriz de trazabilidad](specs/traceability.md)
 - [Convenciones del proyecto](specs/conventions.md)
+- [Registro de cambios de las specs](specs/CHANGELOG.md)
 - [Tareas pendientes](PENDIENTES.md)
 - [Documentación técnica](docs/tecnica/README.md): resumen derivado de las specs y el código (arquitectura, API, dominio, decisiones, pruebas y operaciones).
 - [Entrega final](docs/entrega/README.md): estado del proyecto, verificaciones y evidencia.
