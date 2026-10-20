@@ -47,8 +47,6 @@ classDiagram
         EstadoClase estado
         +crear(nombre, instructor, fechaInicio, duracionMinutos, aforoMaximo, clock)$ Clase
         +restore(...)$ Clase
-        +cancelar(clock)
-        +completar(clock)
     }
 
     class Reserva {

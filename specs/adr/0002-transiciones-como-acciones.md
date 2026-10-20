@@ -28,4 +28,4 @@ El estado nunca se modifica directamente en `PUT`/`PATCH` de la entidad.
 
 - Cada acción tiene su propio `operationId`, request y errores, y mapea 1:1 a un caso de uso.
 - La actualización de datos (si existiera) nunca podría cambiar el estado.
-- Las reglas de transición viven en el dominio (`Reserva.cancelar()`, `Clase.cancelar()`), no en el controlador.
+- Las reglas de transición viven en el dominio (`Reserva.cancelar()`), no en el controlador.

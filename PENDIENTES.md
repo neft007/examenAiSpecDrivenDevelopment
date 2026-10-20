@@ -11,3 +11,4 @@ Lista de tareas futuras del proyecto.
 - [ ] Consultar el detalle de una clase (RF-05): no tiene operación en el contrato ni historia que la cubra. Fuera del alcance de V1. Si se necesita, añadir GET /clases/{id} a la spec, al contrato y a una historia.
 - [ ] Una ruta inexistente responde 500 en lugar de 404. ADR-0007 dice que toda excepción no mapeada responde 500, pero una ruta inexistente no es un error del servidor. Se resolvería ampliando ADR-0004 y ADR-0007 con un código específico (ej. ROUTE_NOT_FOUND). Fuera del alcance de V1.
 - [ ] Implementar prueba de arquitectura con ArchUnit para verificar la regla de dependencia (ADR-0001). Fuera del alcance de V1.
+- [ ] Implementar Clase.cancelar y Clase.completar cuando haya una historia que los requiera (fuera del alcance de V1).
