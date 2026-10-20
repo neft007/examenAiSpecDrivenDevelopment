@@ -133,3 +133,6 @@ Las tres formas de verificar el proyecto se complementan:
 | `./mvnw clean test` | El comportamiento: las reglas y los criterios de aceptación se cumplen. |
 | Colección de Postman | La aplicación en ejecución responde según el contrato. |
 | `spec_lint.py` y `spec_sync.py` | Specs, contrato, código y pruebas siguen sincronizados. |
+
+Los prompts reutilizables usados durante el desarrollo están documentados en
+[`prompts/README.md`](../../prompts/README.md).
