@@ -270,10 +270,12 @@ components:
           type: string
           minLength: 3
           maxLength: 100
+          pattern: '^\S(.*\S)?$'
         instructor:
           type: string
           minLength: 3
           maxLength: 100
+          pattern: '^\S(.*\S)?$'
         fechaInicio:
           type: string
           format: date-time

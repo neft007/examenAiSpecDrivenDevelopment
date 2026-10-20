@@ -11,8 +11,8 @@
 
 ### RF-02: Crear clase
 - Datos:
-  - **Nombre**: obligatorio, entre 3 y 100 caracteres.
-  - **Instructor**: obligatorio, entre 3 y 100 caracteres.
+  - **Nombre**: obligatorio, entre 3 y 100 caracteres, sin espacios al inicio ni al final.
+  - **Instructor**: obligatorio, entre 3 y 100 caracteres, sin espacios al inicio ni al final.
   - **Fecha y hora de inicio**: obligatoria, debe ser futura.
   - **Duración**: obligatoria, en minutos. Debe ser mayor a 0 y máximo 180.
   - **Aforo máximo**: obligatorio, mayor a 0 y máximo 50.

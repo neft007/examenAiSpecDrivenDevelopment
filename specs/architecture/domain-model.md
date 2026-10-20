@@ -138,6 +138,8 @@ classDiagram
 | INV-13 | Solo se puede cancelar una reserva `CONFIRMADA`. | `Reserva.cancelar()` | RF-04 | US04 CA-03 |
 | INV-14 | Solo se puede cancelar con al menos 2 horas de antelación. | `Reserva.cancelar()` | RF-04 | US04 CA-02 |
 | INV-15 | Una reserva cancelada no se elimina. | No existe operación de borrado | RF-04 | — |
+| INV-16 | El nombre de la clase tiene entre 3 y 100 caracteres, sin espacios al inicio ni al final. | `Clase.crear()` | RF-02 | US02 CA-05 |
+| INV-17 | El instructor de la clase tiene entre 3 y 100 caracteres, sin espacios al inicio ni al final. | `Clase.crear()` | RF-02 | US02 CA-06 |
 
 ## 4. Decisiones de modelado
 
