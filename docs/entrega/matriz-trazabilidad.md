@@ -104,3 +104,9 @@ corresponden a un criterio:
 | `restore` sin aplicar reglas, `findById` vacío, `findBySocioId` | `US02CrearClaseTest`, `US03ReservarPlazaTest`, `ClasePersistenceAdapterTest`, `ReservaPersistenceAdapterTest` |
 | ADR-0004 (las 13 filas) y ADR-0007 (500 sin detalles internos) | `GlobalExceptionHandlerTest` |
 | Arranque del contexto completo | `GimnasioReservasApplicationTests` |
+
+## Referencias
+
+El registro de cambios de las specs ([`specs/CHANGELOG.md`](../../specs/CHANGELOG.md)) documenta la
+evolución de los criterios e invariantes que aparecen en esta matriz; por ejemplo, la incorporación de
+US01 CA-06, US02 CA-05 y CA-06, e INV-16 e INV-17.
