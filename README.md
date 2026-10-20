@@ -110,6 +110,24 @@ DNI, email y fechas se generan en cada ejecución, de modo que se puede repetir 
 
 > **Nota:** `MEMBRESIA_VENCIDA` (US03 CA-02) y `CLASE_YA_COMENZADA` (US03 CA-05) solo se cubren en las pruebas automáticas: en V1 no hay API para vencer una membresía ni para crear una clase en el pasado.
 
+## 🛠️ Herramientas de validación
+
+La carpeta [`tools/`](tools/) contiene dos scripts de Python 3 (requieren PyYAML) que complementan `./mvnw clean test`:
+
+| Script | Qué valida |
+| :--- | :--- |
+| `spec_lint.py` | El contrato OpenAPI contra las specs: YAML y OpenAPI 3.x válidos, enums iguales a los catálogos, `operationId` y `x-spec-refs` en cada operación, `ErrorResponse` en las respuestas 4xx y `$ref` que resuelven. |
+| `spec_sync.py` | Que el código y las pruebas sigan las specs: cada `operationId` implementado en un controlador, cada criterio de aceptación con una prueba `USxx_CAyy_`, la convención de nombres y las clases de prueba de `traceability.md`. |
+
+Desde la raíz del repositorio (o con `python3` si no existe `python`):
+
+```bash
+python tools/spec_lint.py
+python tools/spec_sync.py
+```
+
+Devuelven `0` si todo está bien y `1` si hay errores. El detalle de cada regla está en [`tools/README.md`](tools/README.md).
+
 ## 📚 Documentación
 
 - [Visión del producto](specs/vision.md)
