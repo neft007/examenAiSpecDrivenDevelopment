@@ -1,0 +1,1726 @@
+{
+  "info": {
+    "name": "Gimnasio Reservas - Flujo completo",
+    "description": "Flujo de las historias US01 a US05 contra `specs/api/gimnasio-openapi.yaml`, con los errores de ADR-0004.\n\nEjecutar en orden con la aplicación levantada (`./mvnw spring-boot:run`). Las peticiones se encadenan con variables de colección (`socioId`, `claseId`, `reservaId`). DNI, email y fechas se generan en cada ejecución, así que la colección puede repetirse sin reiniciar la aplicación.\n\nNo se cubren `MEMBRESIA_VENCIDA` (US03 CA-02) ni `CLASE_YA_COMENZADA` (US03 CA-05): en V1 no hay API para vencer una membresía ni para crear una clase en el pasado. Están cubiertos por las pruebas automáticas (`ReservarPlazaServiceTest`, `ReservaControllerReservarTest`).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Flujo principal",
+      "description": "Registrar socio → crear clase → reservar → consultar → cancelar.",
+      "item": [
+        {
+          "name": "1. Registrar socio (US01 CA-01)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// DNI y email únicos por ejecución (INV-02, INV-03)",
+                  "const dni = String(Math.floor(Math.random() * 1e8)).padStart(8, \"0\");",
+                  "pm.collectionVariables.set(\"dni\", dni);",
+                  "pm.collectionVariables.set(\"email\", `socio.${dni}@example.com`);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Socio con membresía ACTIVA\", () => {",
+                  "    pm.expect(body.id).to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);",
+                  "    pm.expect(body.dni).to.eql(pm.collectionVariables.get(\"dni\"));",
+                  "    pm.expect(body.nombre).to.eql(\"Ana Pérez\");",
+                  "    pm.expect(body.email).to.eql(pm.collectionVariables.get(\"email\"));",
+                  "    pm.expect(body.membresia).to.eql(\"ACTIVA\");",
+                  "    pm.expect(body.fechaAlta).to.be.a(\"string\");",
+                  "});",
+                  "pm.test(\"Location apunta al socio creado\", () => {",
+                  "    pm.expect(pm.response.headers.get(\"Location\")).to.eql(`/api/v1/socios/${body.id}`);",
+                  "});",
+                  "pm.collectionVariables.set(\"socioId\", body.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"{{dni}}\",\n  \"nombre\": \"Ana Pérez\",\n  \"email\": \"{{email}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "2. Crear clase (US02 CA-01)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Mañana a la misma hora: futura (INV-06) y con más de 2 h para poder cancelar (INV-14)",
+                  "const inicio = new Date(Date.now() + 24 * 60 * 60 * 1000);",
+                  "inicio.setUTCSeconds(0, 0);",
+                  "pm.collectionVariables.set(\"fechaInicio\", inicio.toISOString());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Clase en estado PROGRAMADA\", () => {",
+                  "    pm.expect(body.id).to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);",
+                  "    pm.expect(body.nombre).to.eql(\"Yoga\");",
+                  "    pm.expect(body.instructor).to.eql(\"Carla Ruiz\");",
+                  "    pm.expect(new Date(body.fechaInicio).getTime())",
+                  "        .to.eql(new Date(pm.collectionVariables.get(\"fechaInicio\")).getTime());",
+                  "    pm.expect(body.duracionMinutos).to.eql(60);",
+                  "    pm.expect(body.aforoMaximo).to.eql(10);",
+                  "    pm.expect(body.estado).to.eql(\"PROGRAMADA\");",
+                  "});",
+                  "pm.test(\"Location apunta a la clase creada\", () => {",
+                  "    pm.expect(pm.response.headers.get(\"Location\")).to.eql(`/api/v1/clases/${body.id}`);",
+                  "});",
+                  "pm.collectionVariables.set(\"claseId\", body.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Yoga\",\n  \"instructor\": \"Carla Ruiz\",\n  \"fechaInicio\": \"{{fechaInicio}}\",\n  \"duracionMinutos\": 60,\n  \"aforoMaximo\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "3. Reservar plaza (US03 CA-01)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Reserva CONFIRMADA del socio en la clase\", () => {",
+                  "    pm.expect(body.id).to.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/);",
+                  "    pm.expect(body.socioId).to.eql(pm.collectionVariables.get(\"socioId\"));",
+                  "    pm.expect(body.claseId).to.eql(pm.collectionVariables.get(\"claseId\"));",
+                  "    pm.expect(body.fechaReserva).to.be.a(\"string\");",
+                  "    pm.expect(body.estado).to.eql(\"CONFIRMADA\");",
+                  "});",
+                  "pm.collectionVariables.set(\"reservaId\", body.id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/{{claseId}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "{{claseId}}",
+                "reservas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": \"{{socioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "4. Consultar reservas del socio (US05 CA-01)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+                  "const body = pm.response.json();",
+                  "pm.test(\"Solo la reserva del socio\", () => {",
+                  "    pm.expect(body.totalElements).to.eql(1);",
+                  "    pm.expect(body.items).to.have.lengthOf(1);",
+                  "    pm.expect(body.items[0].id).to.eql(pm.collectionVariables.get(\"reservaId\"));",
+                  "    pm.expect(body.items.every(r => r.socioId === pm.collectionVariables.get(\"socioId\"))).to.be.true;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios/{{socioId}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios",
+                "{{socioId}}",
+                "reservas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "4b. Consultar reservas filtradas por CONFIRMADA (US05 CA-02)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Solo reservas CONFIRMADA\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.totalElements).to.eql(1);",
+                  "    pm.expect(body.items.every(r => r.estado === \"CONFIRMADA\")).to.be.true;",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios/{{socioId}}/reservas?estado=CONFIRMADA",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios",
+                "{{socioId}}",
+                "reservas"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "CONFIRMADA"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "5. Consultar disponibilidad (US05 CA-03)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Una plaza ocupada de 10\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.claseId).to.eql(pm.collectionVariables.get(\"claseId\"));",
+                  "    pm.expect(body.aforoMaximo).to.eql(10);",
+                  "    pm.expect(body.reservasConfirmadas).to.eql(1);",
+                  "    pm.expect(body.plazasDisponibles).to.eql(9);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/{{claseId}}/disponibilidad",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "{{claseId}}",
+                "disponibilidad"
+              ]
+            }
+          }
+        },
+        {
+          "name": "6. Cancelar reserva (US04 CA-01)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Reserva CANCELADA\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.id).to.eql(pm.collectionVariables.get(\"reservaId\"));",
+                  "    pm.expect(body.estado).to.eql(\"CANCELADA\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/reservas/{{reservaId}}/cancelar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reservas",
+                "{{reservaId}}",
+                "cancelar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "6b. Disponibilidad tras cancelar: la plaza queda libre (US04 CA-01)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+                  "pm.test(\"Vuelven a estar las 10 plazas libres\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.reservasConfirmadas).to.eql(0);",
+                  "    pm.expect(body.plazasDisponibles).to.eql(10);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/{{claseId}}/disponibilidad",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "{{claseId}}",
+                "disponibilidad"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Errores - Socios (US01)",
+      "description": "Depende del paso 1 del flujo.",
+      "item": [
+        {
+          "name": "DNI duplicado → 409 DNI_DUPLICADO (US01 CA-02)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"ErrorResponse con code DNI_DUPLICADO\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"DNI_DUPLICADO\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"{{dni}}\",\n  \"nombre\": \"Otro Socio\",\n  \"email\": \"otro.{{email}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Email duplicado → 409 EMAIL_DUPLICADO (US01 CA-04)",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// DNI distinto al del flujo para que solo falle el email",
+                  "const dni = pm.collectionVariables.get(\"dni\");",
+                  "pm.collectionVariables.set(\"dniOtro\", String((Number(dni) + 1) % 1e8).padStart(8, \"0\"));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"ErrorResponse con code EMAIL_DUPLICADO\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"EMAIL_DUPLICADO\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"{{dniOtro}}\",\n  \"nombre\": \"Otro Socio\",\n  \"email\": \"{{email}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "DNI con formato inválido → 400 VALIDATION_ERROR (US01 CA-03)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"ErrorResponse con code VALIDATION_ERROR\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"VALIDATION_ERROR\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"1234ABCD\",\n  \"nombre\": \"Otro Socio\",\n  \"email\": \"formato@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Email con formato inválido → 400 VALIDATION_ERROR (US01 CA-05)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"ErrorResponse con code VALIDATION_ERROR\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"VALIDATION_ERROR\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"87654321\",\n  \"nombre\": \"Otro Socio\",\n  \"email\": \"no-es-un-email\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Nombre con espacios al inicio → 400 VALIDATION_ERROR (US01 CA-06)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"ErrorResponse con code VALIDATION_ERROR\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"VALIDATION_ERROR\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"87654321\",\n  \"nombre\": \" Ana\",\n  \"email\": \"espacios@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Errores - Clases (US02)",
+      "description": "Depende del paso 2 del flujo (`fechaInicio`).",
+      "item": [
+        {
+          "name": "Fecha de inicio en el pasado → 400 VALIDATION_ERROR (US02 CA-02)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"ErrorResponse con code VALIDATION_ERROR\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"VALIDATION_ERROR\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Spinning\",\n  \"instructor\": \"Luis Gómez\",\n  \"fechaInicio\": \"2020-01-01T10:00:00Z\",\n  \"duracionMinutos\": 45,\n  \"aforoMaximo\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Aforo mayor a 50 → 400 VALIDATION_ERROR (US02 CA-03)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"ErrorResponse con code VALIDATION_ERROR\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"VALIDATION_ERROR\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Spinning\",\n  \"instructor\": \"Luis Gómez\",\n  \"fechaInicio\": \"{{fechaInicio}}\",\n  \"duracionMinutos\": 45,\n  \"aforoMaximo\": 51\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Duración mayor a 180 → 400 VALIDATION_ERROR (US02 CA-04)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"ErrorResponse con code VALIDATION_ERROR\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"VALIDATION_ERROR\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Spinning\",\n  \"instructor\": \"Luis Gómez\",\n  \"fechaInicio\": \"{{fechaInicio}}\",\n  \"duracionMinutos\": 181,\n  \"aforoMaximo\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Instructor con espacios al final → 400 VALIDATION_ERROR (US02 CA-06)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"ErrorResponse con code VALIDATION_ERROR\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"VALIDATION_ERROR\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Spinning\",\n  \"instructor\": \"Luis Gómez \",\n  \"fechaInicio\": \"{{fechaInicio}}\",\n  \"duracionMinutos\": 45,\n  \"aforoMaximo\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Errores - Reservas (US03)",
+      "description": "Depende del flujo completo: la reserva del paso 3 ya está cancelada.",
+      "item": [
+        {
+          "name": "Preparar: crear clase con aforo 1",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Otro horario distinto al de la clase del flujo, para que no influya el solapamiento",
+                  "const inicio = new Date(Date.now() + 48 * 60 * 60 * 1000);",
+                  "inicio.setUTCSeconds(0, 0);",
+                  "pm.collectionVariables.set(\"fechaInicioLlena\", inicio.toISOString());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"claseLlenaId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Pilates\",\n  \"instructor\": \"Marta Díaz\",\n  \"fechaInicio\": \"{{fechaInicioLlena}}\",\n  \"duracionMinutos\": 50,\n  \"aforoMaximo\": 1\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Preparar: registrar un segundo socio",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const dni = String(Math.floor(Math.random() * 1e8)).padStart(8, \"0\");",
+                  "pm.collectionVariables.set(\"dniSegundo\", dni);"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"segundoSocioId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dni\": \"{{dniSegundo}}\",\n  \"nombre\": \"Bruno Soto\",\n  \"email\": \"socio.{{dniSegundo}}@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Preparar: el segundo socio ocupa la única plaza",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/{{claseLlenaId}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "{{claseLlenaId}}",
+                "reservas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": \"{{segundoSocioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Aforo completo → 409 AFORO_COMPLETO (US03 CA-03)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"ErrorResponse con code AFORO_COMPLETO\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"AFORO_COMPLETO\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/{{claseLlenaId}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "{{claseLlenaId}}",
+                "reservas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": \"{{socioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Preparar: el socio vuelve a reservar en la clase del flujo",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/{{claseId}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "{{claseId}}",
+                "reservas"
+              ]
+            },
+            "description": "La reserva del flujo se canceló; esta nueva reserva CONFIRMADA es la que provoca el solapamiento.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": \"{{socioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Preparar: crear otra clase a la misma hora",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"claseMismaHoraId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Zumba\",\n  \"instructor\": \"Pedro León\",\n  \"fechaInicio\": \"{{fechaInicio}}\",\n  \"duracionMinutos\": 45,\n  \"aforoMaximo\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Reserva solapada → 409 RESERVA_SOLAPADA (US03 CA-04)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"ErrorResponse con code RESERVA_SOLAPADA\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"RESERVA_SOLAPADA\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/{{claseMismaHoraId}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "{{claseMismaHoraId}}",
+                "reservas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": \"{{socioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Socio inexistente → 404 SOCIO_NOT_FOUND",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"ErrorResponse con code SOCIO_NOT_FOUND\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"SOCIO_NOT_FOUND\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/{{claseId}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "{{claseId}}",
+                "reservas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": \"00000000-0000-0000-0000-000000000000\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Clase inexistente → 404 CLASE_NOT_FOUND",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"ErrorResponse con code CLASE_NOT_FOUND\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"CLASE_NOT_FOUND\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/00000000-0000-0000-0000-000000000000/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "00000000-0000-0000-0000-000000000000",
+                "reservas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": \"{{socioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "claseId mal formado → 400 VALIDATION_ERROR",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"ErrorResponse con code VALIDATION_ERROR\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"VALIDATION_ERROR\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/no-es-un-uuid/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "no-es-un-uuid",
+                "reservas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": \"{{socioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Errores - Cancelación (US04)",
+      "description": "Depende del paso 6 del flujo.",
+      "item": [
+        {
+          "name": "Cancelar una reserva ya cancelada → 409 INVALID_STATE_TRANSITION (US04 CA-03)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"ErrorResponse con code INVALID_STATE_TRANSITION\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"INVALID_STATE_TRANSITION\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/reservas/{{reservaId}}/cancelar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reservas",
+                "{{reservaId}}",
+                "cancelar"
+              ]
+            },
+            "description": "reservaId es la reserva cancelada en el paso 6 del flujo."
+          }
+        },
+        {
+          "name": "Preparar: crear clase que empieza en 1 hora",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Futura (INV-06) pero con menos de 2 h de antelación (INV-14)",
+                  "pm.collectionVariables.set(\"fechaInicioProxima\", new Date(Date.now() + 60 * 60 * 1000).toISOString());"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"claseProximaId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Boxeo\",\n  \"instructor\": \"Raúl Vega\",\n  \"fechaInicio\": \"{{fechaInicioProxima}}\",\n  \"duracionMinutos\": 60,\n  \"aforoMaximo\": 10\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Preparar: reservar en la clase que empieza en 1 hora",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 201\", () => pm.response.to.have.status(201));",
+                  "pm.collectionVariables.set(\"reservaProximaId\", pm.response.json().id);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/{{claseProximaId}}/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "{{claseProximaId}}",
+                "reservas"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"socioId\": \"{{socioId}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Cancelar con menos de 2 h → 409 CANCELACION_FUERA_DE_PLAZO (US04 CA-02)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 409\", () => pm.response.to.have.status(409));",
+                  "pm.test(\"ErrorResponse con code CANCELACION_FUERA_DE_PLAZO\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"CANCELACION_FUERA_DE_PLAZO\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/reservas/{{reservaProximaId}}/cancelar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reservas",
+                "{{reservaProximaId}}",
+                "cancelar"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Reserva inexistente → 404 RESERVA_NOT_FOUND",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"ErrorResponse con code RESERVA_NOT_FOUND\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"RESERVA_NOT_FOUND\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/reservas/00000000-0000-0000-0000-000000000000/cancelar",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "reservas",
+                "00000000-0000-0000-0000-000000000000",
+                "cancelar"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Errores - Consultas (US05)",
+      "description": "Depende del paso 1 del flujo.",
+      "item": [
+        {
+          "name": "Estado fuera de catálogo → 400 VALIDATION_ERROR",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+                  "pm.test(\"ErrorResponse con code VALIDATION_ERROR\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"VALIDATION_ERROR\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios/{{socioId}}/reservas?estado=PENDIENTE",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios",
+                "{{socioId}}",
+                "reservas"
+              ],
+              "query": [
+                {
+                  "key": "estado",
+                  "value": "PENDIENTE"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Socio inexistente → 404 SOCIO_NOT_FOUND",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"ErrorResponse con code SOCIO_NOT_FOUND\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"SOCIO_NOT_FOUND\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/socios/00000000-0000-0000-0000-000000000000/reservas",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "socios",
+                "00000000-0000-0000-0000-000000000000",
+                "reservas"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Clase inexistente → 404 CLASE_NOT_FOUND (US05 CA-04)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status 404\", () => pm.response.to.have.status(404));",
+                  "pm.test(\"ErrorResponse con code CLASE_NOT_FOUND\", () => {",
+                  "    const body = pm.response.json();",
+                  "    pm.expect(body.code).to.eql(\"CLASE_NOT_FOUND\");",
+                  "    pm.expect(body.message).to.be.a(\"string\");",
+                  "    pm.expect(body.details).to.be.an(\"array\");",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/clases/00000000-0000-0000-0000-000000000000/disponibilidad",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "clases",
+                "00000000-0000-0000-0000-000000000000",
+                "disponibilidad"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "socioId",
+      "value": ""
+    },
+    {
+      "key": "claseId",
+      "value": ""
+    },
+    {
+      "key": "reservaId",
+      "value": ""
+    }
+  ]
+}
