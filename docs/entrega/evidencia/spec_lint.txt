@@ -1,0 +1,2 @@
+spec_lint: specs/api/gimnasio-openapi.yaml, specs/domain/catalogs.md, specs/domain/lifecycle.md
+Resultado: OK (6 operaciones; 0 errores, 0 advertencias)
