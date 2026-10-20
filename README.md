@@ -17,7 +17,6 @@ La carpeta [`specs/`](specs/) es la **fuente única de verdad**: nada se impleme
 ### Requisitos
 - Java 25 (o superior)
 - Maven (incluido como wrapper `./mvnw`)
-- Docker (opcional, para base de datos PostgreSQL/MySQL)
 
 ### Comandos
 
@@ -25,20 +24,19 @@ La carpeta [`specs/`](specs/) es la **fuente única de verdad**: nada se impleme
 | :--- | :--- |
 | Compilar y probar | `./mvnw clean test` |
 | Ejecutar la aplicación | `./mvnw spring-boot:run` |
-| Validar specs (si está disponible) | `python tools/spec_lint.py` |
-| Verificar specs ↔ implementación | `python tools/spec_sync.py` |
 
 La aplicación arranca en `http://localhost:8080`.
 
+### URLs de desarrollo
+
+| Recurso | URL |
+| :--- | :--- |
+| Swagger UI (contrato autoritativo) | `http://localhost:8080/swagger-ui.html` |
+| Consola H2 | `http://localhost:8080/h2-console` |
+
 ### Base de datos
 
-Por defecto, se usa **H2 en memoria** (los datos se pierden al reiniciar). Para usar PostgreSQL, levanta el contenedor con Docker:
-
-```bash
-docker-compose up -d
-```
-
-Y configura las credenciales en `src/main/resources/application.properties`.
+H2 en memoria (ADR-0005), consola en `http://localhost:8080/h2-console`. Los datos se pierden al reiniciar.
 
 ## 🏗️ Arquitectura
 
@@ -53,7 +51,7 @@ src/main/java/.../
 │   └── service/         # Implementación de los casos de uso
 ├── adapter/
 │   ├── in/web/          # Controladores REST (implementan el contrato OpenAPI)
-│   └── out/persistence/ # Adaptador JPA (H2/PostgreSQL)
+│   └── out/persistence/ # Adaptador JPA (H2)
 └── config/              # Configuración (Clock, etc.)
 ```
 
@@ -77,12 +75,13 @@ src/main/java/.../
 | [ADR-0002](specs/adr/0002-transiciones-como-acciones.md) | Transiciones de estado como acciones POST | Aceptado |
 | [ADR-0003](specs/adr/0003-identificador-uuid.md) | Identificador técnico UUID | Aceptado |
 | [ADR-0004](specs/adr/0004-codigos-de-error.md) | Códigos HTTP de error según tipo de regla | Aceptado |
-| [ADR-0005](specs/adr/0005-base-de-datos-h2.md) | H2 en memoria para desarrollo, PostgreSQL para producción | Aceptado |
+| [ADR-0005](specs/adr/0005-base-de-datos-h2.md) | H2 en memoria con Spring Data JPA | Aceptado |
 | [ADR-0006](specs/adr/0006-spring-boot-4.md) | Spring Boot 4.1.x con Java 25 | Aceptado |
+| [ADR-0007](specs/adr/0007-error-interno-generico.md) | Error interno genérico (500 INTERNAL_ERROR) | Aceptado |
 
 ## 🧪 Pruebas
 
-- Un test por criterio de aceptación, con el nombre `USxx_CAyy_descripcion`.
+- Un test por criterio de aceptación, con el nombre `USxx_CAyy_descripcionEnIngles`.
 - Pruebas de dominio con JUnit puro (sin Spring).
 - Pruebas de servicios con doble en memoria del puerto de salida.
 - Pruebas de controladores con `@WebMvcTest` y casos de uso mockeados.
@@ -99,9 +98,16 @@ Ejecutar todas las pruebas:
 - [Visión del producto](specs/vision.md)
 - [Requerimientos funcionales](specs/requirements/functional.md)
 - [Historias de usuario](specs/user-stories/)
+- [Ciclo de vida de las entidades](specs/domain/lifecycle.md)
+- [Catálogos](specs/domain/catalogs.md)
 - [Modelo de dominio](specs/architecture/domain-model.md)
+- [Arquitectura](specs/architecture/architecture.md)
+- [Stack tecnológico](specs/architecture/tech-stack.md)
+- [Decisiones de arquitectura (ADRs)](specs/adr/)
 - [Contrato OpenAPI](specs/api/gimnasio-openapi.yaml)
 - [Matriz de trazabilidad](specs/traceability.md)
+- [Convenciones del proyecto](specs/conventions.md)
+- [Tareas pendientes](PENDIENTES.md)
 
 ## 🤖 Uso de IA
 
