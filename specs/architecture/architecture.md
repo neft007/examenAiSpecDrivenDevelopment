@@ -29,7 +29,7 @@ flowchart TB
     subgraph CFG["config"]
         CC["ClockConfiguration (composition root)"]
     end
-    DB[("H2 / PostgreSQL")]
+    DB[("H2")]
 
     CLIENT --> CTRL
     CTRL -- "usa" --> UCI
