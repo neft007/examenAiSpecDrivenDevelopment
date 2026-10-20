@@ -12,9 +12,18 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import pe.edu.galaxy.training.java.sdd.gimnasio.adapter.in.web.generated.model.ErrorResponse;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.AforoCompletoException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.CancelacionFueraDePlazoException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.ClaseNotFoundException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.ClaseYaComenzadaException;
 import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.DniDuplicadoException;
 import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.DomainException;
 import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.EmailDuplicadoException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.InvalidStateTransitionException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.MembresiaVencidaException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.ReservaNotFoundException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.ReservaSolapadaException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.SocioNotFoundException;
 import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.ValidationException;
 
 /**
@@ -56,6 +65,51 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EmailDuplicadoException.class)
     ResponseEntity<ErrorResponse> handleEmailDuplicado(EmailDuplicadoException ex) {
         return error(HttpStatus.CONFLICT, "EMAIL_DUPLICADO", ex);
+    }
+
+    @ExceptionHandler(SocioNotFoundException.class)
+    ResponseEntity<ErrorResponse> handleSocioNotFound(SocioNotFoundException ex) {
+        return error(HttpStatus.NOT_FOUND, "SOCIO_NOT_FOUND", ex);
+    }
+
+    @ExceptionHandler(ClaseNotFoundException.class)
+    ResponseEntity<ErrorResponse> handleClaseNotFound(ClaseNotFoundException ex) {
+        return error(HttpStatus.NOT_FOUND, "CLASE_NOT_FOUND", ex);
+    }
+
+    @ExceptionHandler(ReservaNotFoundException.class)
+    ResponseEntity<ErrorResponse> handleReservaNotFound(ReservaNotFoundException ex) {
+        return error(HttpStatus.NOT_FOUND, "RESERVA_NOT_FOUND", ex);
+    }
+
+    @ExceptionHandler(MembresiaVencidaException.class)
+    ResponseEntity<ErrorResponse> handleMembresiaVencida(MembresiaVencidaException ex) {
+        return error(HttpStatus.CONFLICT, "MEMBRESIA_VENCIDA", ex);
+    }
+
+    @ExceptionHandler(ClaseYaComenzadaException.class)
+    ResponseEntity<ErrorResponse> handleClaseYaComenzada(ClaseYaComenzadaException ex) {
+        return error(HttpStatus.CONFLICT, "CLASE_YA_COMENZADA", ex);
+    }
+
+    @ExceptionHandler(AforoCompletoException.class)
+    ResponseEntity<ErrorResponse> handleAforoCompleto(AforoCompletoException ex) {
+        return error(HttpStatus.CONFLICT, "AFORO_COMPLETO", ex);
+    }
+
+    @ExceptionHandler(ReservaSolapadaException.class)
+    ResponseEntity<ErrorResponse> handleReservaSolapada(ReservaSolapadaException ex) {
+        return error(HttpStatus.CONFLICT, "RESERVA_SOLAPADA", ex);
+    }
+
+    @ExceptionHandler(InvalidStateTransitionException.class)
+    ResponseEntity<ErrorResponse> handleInvalidStateTransition(InvalidStateTransitionException ex) {
+        return error(HttpStatus.CONFLICT, "INVALID_STATE_TRANSITION", ex);
+    }
+
+    @ExceptionHandler(CancelacionFueraDePlazoException.class)
+    ResponseEntity<ErrorResponse> handleCancelacionFueraDePlazo(CancelacionFueraDePlazoException ex) {
+        return error(HttpStatus.CONFLICT, "CANCELACION_FUERA_DE_PLAZO", ex);
     }
 
     // Error no mapeado: no se exponen detalles internos al cliente

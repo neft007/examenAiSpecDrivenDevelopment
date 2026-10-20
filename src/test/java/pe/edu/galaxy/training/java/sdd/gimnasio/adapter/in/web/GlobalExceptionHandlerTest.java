@@ -13,18 +13,30 @@ import jakarta.validation.constraints.NotBlank;
 
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.AforoCompletoException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.CancelacionFueraDePlazoException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.ClaseNotFoundException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.ClaseYaComenzadaException;
 import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.DniDuplicadoException;
 import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.EmailDuplicadoException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.InvalidStateTransitionException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.MembresiaVencidaException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.ReservaNotFoundException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.ReservaSolapadaException;
+import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.SocioNotFoundException;
 import pe.edu.galaxy.training.java.sdd.gimnasio.domain.exception.ValidationException;
 
 /**
@@ -87,6 +99,26 @@ class GlobalExceptionHandlerTest {
                 .andExpect(jsonPath("$.details", not(empty())));
     }
 
+    @ParameterizedTest
+    @CsvSource({
+            "SOCIO_NOT_FOUND, 404",
+            "CLASE_NOT_FOUND, 404",
+            "RESERVA_NOT_FOUND, 404",
+            "MEMBRESIA_VENCIDA, 409",
+            "CLASE_YA_COMENZADA, 409",
+            "AFORO_COMPLETO, 409",
+            "RESERVA_SOLAPADA, 409",
+            "INVALID_STATE_TRANSITION, 409",
+            "CANCELACION_FUERA_DE_PLAZO, 409"
+    })
+    void domainException_returnsStatusAndCodeOfAdr0004(String code, int httpStatus) throws Exception {
+        mockMvc.perform(get("/test/domain/" + code))
+                .andExpect(status().is(httpStatus))
+                .andExpect(jsonPath("$.code").value(code))
+                .andExpect(jsonPath("$.message").isNotEmpty())
+                .andExpect(jsonPath("$.details", not(empty())));
+    }
+
     @Test
     void unexpectedException_returns500InternalErrorWithoutInternalDetails() throws Exception {
         mockMvc.perform(get("/test/unexpected"))
@@ -120,6 +152,24 @@ class GlobalExceptionHandlerTest {
         @GetMapping("/test/email-duplicado")
         void emailDuplicado() {
             throw new EmailDuplicadoException("ana@gym.pe");
+        }
+
+        @GetMapping("/test/domain/{code}")
+        void domain(@PathVariable String code) {
+            throw switch (code) {
+                case "SOCIO_NOT_FOUND" -> new SocioNotFoundException("3f2b8c1e-4d5a-4b6c-9e7f-1a2b3c4d5e6f");
+                case "CLASE_NOT_FOUND" -> new ClaseNotFoundException("7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d");
+                case "RESERVA_NOT_FOUND" -> new ReservaNotFoundException("9c8b7a6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d");
+                case "MEMBRESIA_VENCIDA" -> new MembresiaVencidaException("3f2b8c1e-4d5a-4b6c-9e7f-1a2b3c4d5e6f");
+                case "CLASE_YA_COMENZADA" -> new ClaseYaComenzadaException("7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d");
+                case "AFORO_COMPLETO" -> new AforoCompletoException("7a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c4d");
+                case "RESERVA_SOLAPADA" -> new ReservaSolapadaException("3f2b8c1e-4d5a-4b6c-9e7f-1a2b3c4d5e6f",
+                        "2026-10-20T18:00:00Z");
+                case "INVALID_STATE_TRANSITION" -> new InvalidStateTransitionException("CANCELADA", "CANCELADA");
+                case "CANCELACION_FUERA_DE_PLAZO" ->
+                        new CancelacionFueraDePlazoException("9c8b7a6d-5e4f-4a3b-8c2d-1e0f9a8b7c6d");
+                default -> new IllegalArgumentException(code);
+            };
         }
 
         @GetMapping("/test/unexpected")
