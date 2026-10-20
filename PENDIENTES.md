@@ -8,3 +8,4 @@ Lista de tareas futuras del proyecto.
 - [x] Completar GlobalExceptionHandlerTest con el resto de filas de ADR-0004 a medida que se creen sus excepciones.
 - [ ] Validar que la clase esté en estado PROGRAMADA antes de reservar. En V1 no hay forma de cancelar una clase, así que no puede pasar, pero debería especificarse si se añade Clase.cancelar.
 - [ ] Race condition en INV-11 e INV-12: dos reservas simultáneas pueden saltarse el aforo o el solapamiento. Se resolvería con bloqueo optimista o pesimista en una versión futura. Aceptable para H2 en un proyecto de aprendizaje.
+- [ ] Consultar el detalle de una clase (RF-05): no tiene operación en el contrato ni historia que la cubra. Fuera del alcance de V1. Si se necesita, añadir GET /clases/{id} a la spec, al contrato y a una historia.
