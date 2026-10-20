@@ -51,19 +51,19 @@ class US01RegistrarSocioTest {
     @ParameterizedTest
     @NullSource
     @ValueSource(strings = {"", "Al", " Ana", "Ana ", "  "})
-    void US01_INV05_rejectsInvalidNombre(String nombre) {
+    void US01_CA06_rejectsInvalidNombre(String nombre) {
         assertThatThrownBy(() -> Socio.registrar(new Dni("12345678"), nombre, new Email("ana@gym.pe"), CLOCK))
                 .isInstanceOf(ValidationException.class);
     }
 
     @Test
-    void US01_INV05_rejectsNombreLongerThan100Characters() {
+    void US01_CA06_rejectsNombreLongerThan100Characters() {
         assertThatThrownBy(() -> Socio.registrar(new Dni("12345678"), "A".repeat(101), new Email("ana@gym.pe"), CLOCK))
                 .isInstanceOf(ValidationException.class);
     }
 
     @Test
-    void US01_INV05_acceptsNombreAtBoundaries() {
+    void US01_CA06_acceptsNombreAtBoundaries() {
         assertThat(Socio.registrar(new Dni("12345678"), "Ana", new Email("ana@gym.pe"), CLOCK).getNombre())
                 .isEqualTo("Ana");
         assertThat(Socio.registrar(new Dni("12345678"), "A".repeat(100), new Email("ana@gym.pe"), CLOCK).getNombre())
