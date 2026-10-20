@@ -9,3 +9,4 @@ Lista de tareas futuras del proyecto.
 - [ ] Validar que la clase esté en estado PROGRAMADA antes de reservar. En V1 no hay forma de cancelar una clase, así que no puede pasar, pero debería especificarse si se añade Clase.cancelar.
 - [ ] Race condition en INV-11 e INV-12: dos reservas simultáneas pueden saltarse el aforo o el solapamiento. Se resolvería con bloqueo optimista o pesimista en una versión futura. Aceptable para H2 en un proyecto de aprendizaje.
 - [ ] Consultar el detalle de una clase (RF-05): no tiene operación en el contrato ni historia que la cubra. Fuera del alcance de V1. Si se necesita, añadir GET /clases/{id} a la spec, al contrato y a una historia.
+- [ ] Una ruta inexistente responde 500 en lugar de 404. ADR-0007 dice que toda excepción no mapeada responde 500, pero una ruta inexistente no es un error del servidor. Se resolvería ampliando ADR-0004 y ADR-0007 con un código específico (ej. ROUTE_NOT_FOUND). Fuera del alcance de V1.
