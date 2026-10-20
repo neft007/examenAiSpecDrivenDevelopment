@@ -2,7 +2,7 @@
 
 - **Estado:** Aceptado
 - **Fecha:** 2026-10-18
-- **Specs relacionadas:** US01–US05, invariantes INV-01 a INV-15
+- **Specs relacionadas:** US01–US05, invariantes INV-01 a INV-17
 
 ## Contexto
 

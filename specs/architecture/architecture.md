@@ -46,7 +46,7 @@ flowchart TB
 
 | Capa / paquete | Responsabilidad | Puede depender de | Nunca depende de |
 | :--- | :--- | :--- | :--- |
-| `domain` | Modelo, reglas e invariantes (INV-01 a INV-15), excepciones de dominio. | nada | Spring, JPA, HTTP, `application`, `adapter` |
+| `domain` | Modelo, reglas e invariantes (INV-01 a INV-17), excepciones de dominio. | nada | Spring, JPA, HTTP, `application`, `adapter` |
 | `application.port.in` | Interfaces de casos de uso + Commands, Queries y Results. | `domain` | `adapter` |
 | `application.port.out` | Interfaces de lo que la aplicación necesita del exterior. | `domain` | `adapter` |
 | `application.service` | Implementa `port.in`; orquesta dominio y `port.out`. | `domain`, `port.in`, `port.out` | `adapter` |
