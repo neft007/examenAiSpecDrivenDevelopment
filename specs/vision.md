@@ -23,6 +23,7 @@ solo puedan reservar en clases con aforo disponible y que sus membresías estén
 - Gestión de instructores (solo se registra su nombre).
 - Listas de espera para clases llenas.
 - Historial de asistencias (solo reservas).
+- Cambio de membresía (solo se asigna al registrar el socio).
 
 ## 5. Partes interesadas
 | Rol | Interés principal |
