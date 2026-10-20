@@ -65,4 +65,4 @@ desde ese commit solo ha cambiado documentación.
 | [`specs/traceability.md`](../../specs/traceability.md) | Matriz de trazabilidad de la spec (fuente de la matriz de esta entrega). |
 | [`tools/`](../../tools/README.md) | Scripts de validación `spec_lint.py` y `spec_sync.py`. |
 | [`postman/`](../../postman/gimnasio-reservas-flujo.postman_collection.json) | Colección con el flujo completo y los casos de error. |
-| [`prompts/`](../../prompts/) | Prompts reutilizables usados con Claude Code. |
+| [`prompts/`](../../prompts/README.md) | Prompts de IA: prompts reutilizables usados con Claude Code durante el desarrollo. |
