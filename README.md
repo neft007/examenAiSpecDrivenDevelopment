@@ -93,6 +93,23 @@ Ejecutar todas las pruebas:
 ./mvnw clean test
 ```
 
+### Colección de Postman
+
+[`postman/gimnasio-reservas-flujo.postman_collection.json`](postman/gimnasio-reservas-flujo.postman_collection.json) (**Gimnasio Reservas - Flujo completo**) recorre el flujo completo de US01 a US05 y los casos de error de ADR-0004, con aserciones sobre el código HTTP y el body.
+
+Requiere la aplicación levantada en `http://localhost:8080` (`./mvnw spring-boot:run`). Las peticiones dependen unas de otras, así que la colección se ejecuta completa y en orden:
+
+- **Postman:** importar el archivo y ejecutarlo con el Runner.
+- **newman:**
+
+  ```bash
+  npx newman run postman/gimnasio-reservas-flujo.postman_collection.json
+  ```
+
+DNI, email y fechas se generan en cada ejecución, de modo que se puede repetir sin reiniciar la aplicación.
+
+> **Nota:** `MEMBRESIA_VENCIDA` (US03 CA-02) y `CLASE_YA_COMENZADA` (US03 CA-05) solo se cubren en las pruebas automáticas: en V1 no hay API para vencer una membresía ni para crear una clase en el pasado.
+
 ## 📚 Documentación
 
 - [Visión del producto](specs/vision.md)
