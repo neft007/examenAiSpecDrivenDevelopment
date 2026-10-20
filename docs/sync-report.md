@@ -19,6 +19,7 @@
 | Enums vs `catalogs.md` | ✅ Mismos valores y mismo orden en dominio y contrato. |
 | Regla de dependencia (ADR-0001) | ✅ Se cumple en el código. La prueba automática (ArchUnit) queda pendiente (D-03). |
 | Coherencia interna de las specs | ✅ Las 7 diferencias detectadas están resueltas (ver tabla). |
+| Colección de Postman | ✅ Flujo completo y errores verificados contra la aplicación en ejecución (ver [Verificaciones](#verificaciones-realizadas)). |
 
 ## Diferencias detectadas
 
@@ -59,6 +60,12 @@ Recogidos en [`PENDIENTES.md`](../PENDIENTES.md); fuera del alcance de V1.
   cubre todas las filas y el 500 sin detalles internos.
 - **Stack:** Java 25, Spring Boot 4.1.1, openapi-generator 7.22.0 y springdoc 3.1.1 en `pom.xml`, coherentes con
   `tech-stack.md`; la consola H2 y Swagger UI responden en `/h2-console` y `/swagger-ui.html`.
+- **Colección de Postman:** [`postman/gimnasio-reservas-flujo.postman_collection.json`](../postman/gimnasio-reservas-flujo.postman_collection.json)
+  recorre el flujo completo de US01 a US05 y los casos de error de ADR-0004. Se ejecutó con newman 6.2.1
+  contra la aplicación local dos veces seguidas, sin reiniciarla: 35 peticiones, 65 aserciones, 0 fallos
+  en cada ejecución. `MEMBRESIA_VENCIDA` y `CLASE_YA_COMENZADA` no se pueden provocar por la API en V1,
+  así que solo se cubren en las pruebas automáticas. Detalle en
+  [`docs/tecnica/pruebas.md`](tecnica/pruebas.md#colección-de-postman).
 - **Documentación derivada:** [`docs/tecnica/`](tecnica/README.md) se generó a partir de este mismo estado.
 
 ## Cómo repetir la revisión
