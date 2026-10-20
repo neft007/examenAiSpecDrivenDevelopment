@@ -20,6 +20,7 @@
 | Regla de dependencia (ADR-0001) | ✅ Se cumple en el código. La prueba automática (ArchUnit) queda pendiente (D-03). |
 | Coherencia interna de las specs | ✅ Las 7 diferencias detectadas están resueltas (ver tabla). |
 | Colección de Postman | ✅ Flujo completo y errores verificados contra la aplicación en ejecución (ver [Verificaciones](#verificaciones-realizadas)). |
+| Prompts de IA | ✅ 4 prompts reutilizables en `prompts/`; todas las rutas de `specs/` y `docs/` que citan existen (ver [Verificaciones](#verificaciones-realizadas)). |
 
 ## Diferencias detectadas
 
@@ -66,6 +67,10 @@ Recogidos en [`PENDIENTES.md`](../PENDIENTES.md); fuera del alcance de V1.
   en cada ejecución. `MEMBRESIA_VENCIDA` y `CLASE_YA_COMENZADA` no se pueden provocar por la API en V1,
   así que solo se cubren en las pruebas automáticas. Detalle en
   [`docs/tecnica/pruebas.md`](tecnica/pruebas.md#colección-de-postman).
+- **Prompts de IA:** [`prompts/`](../prompts/) contiene 4 prompts reutilizables usados con Claude Code
+  (dominio, operación, refactorización y documentación). Cada uno indica cuándo usarlo y las variables
+  que acepta, y en conjunto documentan el flujo SDD seguido durante el desarrollo. Las 13 rutas de
+  `specs/` y `docs/` que mencionan existen en el repositorio.
 - **Documentación derivada:** [`docs/tecnica/`](tecnica/README.md) se generó a partir de este mismo estado.
 
 ## Cómo repetir la revisión
