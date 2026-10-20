@@ -81,7 +81,8 @@ Recogidos en [`PENDIENTES.md`](../PENDIENTES.md); fuera del alcance de V1.
   6 operaciones, 24 criterios, 110 métodos de prueba y 0 errores; informa además de 22 pruebas sin
   prefijo `USxx_CAyy_`, que se admiten porque no cubren un criterio concreto. Los dos scripts y su
   relación con `mvn test` y la colección de Postman se documentan en
-  [`docs/tecnica/pruebas.md`](tecnica/pruebas.md#validación-de-specs).
+  [`docs/tecnica/pruebas.md`](tecnica/pruebas.md#validación-de-specs). [`PENDIENTES.md`](../PENDIENTES.md)
+  registra esta tarea como completada.
 
 ## Cómo repetir la revisión
 
