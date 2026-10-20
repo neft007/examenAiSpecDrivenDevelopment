@@ -32,6 +32,13 @@ Una ficha por operación del contrato: entrada, flujo, reglas, errores y pruebas
 
 - [`../sync-report.md`](../sync-report.md): diferencias detectadas entre specs e implementación.
 
+### Entrega final
+
+- [`../entrega/README.md`](../entrega/README.md): resumen de la entrega (estado, cómo ejecutar y
+  verificaciones), la [matriz de trazabilidad](../entrega/matriz-trazabilidad.md) RF → US → CA → INV →
+  operación → pruebas concretas, y la [evidencia](../entrega/evidencia/) de `mvn test`, `spec_lint.py` y
+  `spec_sync.py`.
+
 ### Colección de Postman
 
 - [`postman/gimnasio-reservas-flujo.postman_collection.json`](../../postman/gimnasio-reservas-flujo.postman_collection.json):
