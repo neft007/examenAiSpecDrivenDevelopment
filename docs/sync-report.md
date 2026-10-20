@@ -60,9 +60,7 @@ Diferencias que siguen abiertas entre lo que dicen las specs y lo que hace el c�
 | Pruebas automáticas | `./mvnw clean test` | ✅ 162 pruebas, 0 fallos, 0 errores. | `f985d29` |
 | Coherencia de specs | `python tools/spec_lint.py` | ✅ OK: 6 operaciones, 0 errores, 0 advertencias. | `f985d29` |
 | Specs ↔ código y pruebas | `python tools/spec_sync.py` | ✅ OK: 6 operaciones en 3 controladores, 24 criterios, 110 métodos de prueba, 21 clases de `traceability.md`, 0 errores. Hay 22 pruebas sin prefijo `USxx_CAyy_`, que se admiten. | `f985d29` |
-| Aplicación en ejecución | `npx newman run postman/gimnasio-reservas-flujo.postman_collection.json` | ✅ 35 peticiones, 65 aserciones, 0 fallos; dos ejecuciones seguidas sin reiniciar la aplicación. `MEMBRESIA_VENCIDA` y `CLASE_YA_COMENZADA` no se pueden provocar por la API en V1. | `dfb3601`[^postman] |
-
-[^postman]: Ni la colección ni el código de producción han cambiado desde `dfb3601`.
+| Aplicación en ejecución | `npx newman run postman/gimnasio-reservas-flujo.postman_collection.json` | ✅ 2026-10-20: 35 peticiones, 65 aserciones, 0 fallos, contra la aplicación recién arrancada (`./mvnw spring-boot:run`). `MEMBRESIA_VENCIDA` y `CLASE_YA_COMENZADA` no se pueden provocar por la API en V1. | `065cb8e` |
 
 ### Revisión manual
 
