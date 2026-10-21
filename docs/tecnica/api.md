@@ -10,6 +10,9 @@
 OpenAPI 3.0.3, versión `1.0.0`, servidor local `http://localhost:8080`. El contrato se puede explorar
 en Swagger UI (`/swagger-ui.html`).
 
+Las interfaces de la API (`SociosApi`, `ClasesApi`, `ReservasApi`) se generan a partir del contrato; la
+configuración del generador está documentada en [`specs/resources/plugins.md`](../../specs/resources/plugins.md).
+
 ## Operaciones
 
 | Método y ruta | operationId | Tag | Éxito | Errores | Historia |
