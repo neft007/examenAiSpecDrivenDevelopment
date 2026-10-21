@@ -70,6 +70,8 @@ Cada frontera tiene su propio modelo; el dominio nunca sale de la aplicación.
 
 Commands y Queries usan los enums del dominio. La conversión entre los enums generados del contrato y los del dominio ocurre solo en los `*WebMapper` (`adapter.in.web`).
 
+Los `*Request`, los `*Response`, los enums del contrato y las interfaces `SociosApi`, `ClasesApi` y `ReservasApi` se generan a partir del contrato en `adapter.in.web.generated` (fuera de `src/`, al compilar). La configuración del generador está documentada en [`resources/plugins.md`](../resources/plugins.md).
+
 ## 4. Puertos
 
 | Puerto | Tipo | Operaciones |
