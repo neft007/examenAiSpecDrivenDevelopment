@@ -147,6 +147,7 @@ Devuelven `0` si todo está bien y `1` si hay errores. El detalle de cada regla 
 - [Documentación técnica](docs/tecnica/README.md): resumen derivado de las specs y el código (arquitectura, API, dominio, decisiones, pruebas y operaciones).
 - [Entrega final](docs/entrega/README.md): estado del proyecto, verificaciones y evidencia.
 - [Informe de sincronización](docs/sync-report.md): diferencias entre specs e implementación y su resolución.
+- Revisión final: [`docs/revisiones/2026-10-20-revision-final.md`](docs/revisiones/2026-10-20-revision-final.md).
 - [Colección de Postman](postman/gimnasio-reservas-flujo.postman_collection.json): flujo completo de US01 a US05 y casos de error contra la aplicación en ejecución.
 - [Herramientas de validación](tools/): `spec_lint.py` y `spec_sync.py`.
 - [Prompts de IA](prompts/README.md): prompts reutilizables usados con Claude Code durante el desarrollo (dominio, operación, refactorización, documentación).
