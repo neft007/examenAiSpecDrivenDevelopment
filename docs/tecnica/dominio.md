@@ -48,6 +48,11 @@ stateDiagram-v2
 Fuente: [`lifecycle.md`](../../specs/domain/lifecycle.md). Los enums `Membresia`, `EstadoClase` y
 `EstadoReserva` tienen los mismos valores y el mismo orden que [`catalogs.md`](../../specs/domain/catalogs.md).
 
+El contrato tiene sus propios enums (`EstadoMembresia`, `EstadoClase`, `EstadoReserva`), generados en
+`adapter.in.web.generated.model`; el dominio no los usa y la conversión (`valueOf(name())`) se hace solo en
+los `*WebMapper`. La configuración del generador está documentada en
+[`specs/resources/plugins.md`](../../specs/resources/plugins.md).
+
 ## Invariantes
 
 | ID | Regla | Dónde se garantiza | Error | CA |
