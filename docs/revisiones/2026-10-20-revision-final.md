@@ -1,7 +1,7 @@
 # Revisión final con criterio · 2026-10-20
 
 > **Fecha:** 2026-10-20. **Commit revisado:** `26df59f` (código sin cambios desde `065cb8e`).
-> **Actualizada:** 2026-10-20 hasta `53f6d21`, con los cambios posteriores del mismo día
+> **Actualizada:** 2026-10-20 hasta `f5961a2`, con los cambios posteriores del mismo día
 > (ver [Actualización posterior](#actualización-posterior-a-la-revisión)).
 > **Fuentes:** [`specs/`](../../specs/), [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md),
 > [`docs/sync-report.md`](../sync-report.md), [`PENDIENTES.md`](../../PENDIENTES.md) y `git log`.
@@ -93,10 +93,12 @@ Tareas abiertas en [`PENDIENTES.md`](../../PENDIENTES.md), todas fuera del alcan
 
 ## Actualización posterior a la revisión
 
-Después de `26df59f` se hicieron 53 commits el mismo día, hasta `53f6d21`. Todos cambian documentación o
-specs en prosa: el código, el `pom.xml`, el contrato, la colección de Postman y los scripts de `tools/` no
-cambiaron. Por eso las verificaciones de arriba siguen siendo válidas; `spec_lint.py` y `spec_sync.py` se
-volvieron a ejecutar en `53f6d21` con resultado OK (0 errores, 0 advertencias).
+Después de `26df59f` se hicieron 55 commits el mismo día, hasta `f5961a2`. Todos cambian documentación o
+specs en prosa, salvo `f5961a2`, que añade un script nuevo a `tools/` (ver
+[Herramientas añadidas](#herramientas-añadidas)). El código, el `pom.xml`, el contrato, la colección de
+Postman, `spec_lint.py` y `spec_sync.py` no cambiaron. Por eso las verificaciones de arriba siguen siendo
+válidas; `spec_lint.py` y `spec_sync.py` se volvieron a ejecutar en `f5961a2` con resultado OK (0 errores,
+0 advertencias), y `mvn test` pasó antes de `f5961a2` (162 pruebas, 0 fallos).
 
 ### Evidencia de la entrega regenerada
 
@@ -140,15 +142,30 @@ muestran resultados fechados en `26df59f`, para explicar por qué siguen vigente
 (`a552371`), la [matriz de trazabilidad](../entrega/matriz-trazabilidad.md) (`466c915`) y
 [`docs/tecnica/pruebas.md`](../tecnica/pruebas.md) (`53f6d21`); y desde los puntos de entrada
 [`README.md`](../../README.md) (`ea0f4d3`) y [`docs/tecnica/README.md`](../tecnica/README.md) (`1281a52`).
-Esos enlaces no citan hasta qué commit está actualizada la revisión: solo lo indica la cabecera de este
-documento, para no tener que corregir varios archivos cada vez que se actualice.
+Desde `d9300c6`, esos enlaces no citan hasta qué commit está actualizada la revisión: solo lo indica la
+cabecera de este documento, para no tener que corregir varios archivos cada vez que se actualice.
 
 **Decisiones de criterio:** no se enlazó desde `prompts/README.md`, `CLAUDE.md` ni `docs/tecnica/arquitectura.md`
 (ni el resto de `docs/tecnica/`), porque no muestran resultados ni estado: el índice de prompts sirve para
 elegir un prompt, y `CLAUDE.md` se carga en cada sesión de la IA y solo recoge fuentes de verdad y reglas.
 
-Una comprobación con script sobre los 49 archivos Markdown versionados, en `53f6d21`, dio **0 enlaces rotos,
-0 anclas rotas y ningún archivo sin enlaces entrantes** (fuera de `src/`).
+Una primera comprobación con un script provisional, en `53f6d21`, dio 0 enlaces rotos, 0 anclas rotas y
+ningún archivo sin enlaces entrantes. Ese script se convirtió después en `tools/check_links.py`.
+
+### Herramientas añadidas
+
+| Herramienta | Qué comprueba | Resultado | Commit |
+| :--- | :--- | :--- | :--- |
+| [`tools/check_links.py`](../../tools/check_links.py) | Que los enlaces relativos de los Markdown versionados existan, que las anclas coincidan con un título y que ningún archivo versionado quede sin enlazar (salvo puntos de entrada, infraestructura, `src/` y `.mvn/`). Sin dependencias externas; devuelve `0` si está OK y `1` si hay errores. | ✅ Sobre `d9300c6`: 283 enlaces comprobados en 49 archivos Markdown, 0 errores, 0 huérfanos. | `f5961a2` |
+
+Antes de versionarlo se probó con fallos inyectados en un worktree temporal: detectó un enlace roto, un ancla
+rota y un archivo huérfano, e ignoró un enlace falso dentro de un fragmento de código.
+
+Está documentado en [`tools/README.md`](../../tools/README.md) y lo mencionan [`README.md`](../../README.md),
+[`docs/tecnica/README.md`](../tecnica/README.md), [`docs/tecnica/pruebas.md`](../tecnica/pruebas.md),
+[`docs/entrega/README.md`](../entrega/README.md) y [`docs/sync-report.md`](../sync-report.md), que registra
+la ejecución y lo incluye en "Cómo repetir la revisión". La tabla "Verificaciones realizadas" de la entrega
+no lo incluye, porque todas sus verificaciones y su evidencia son de `26df59f`.
 
 ## Conclusión
 
