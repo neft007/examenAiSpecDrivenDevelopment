@@ -51,6 +51,8 @@ Genera (o actualiza) {{SECCION}} a partir de las specs y el código.
      target/surefire-reports por capa y por clase.
    Vuelve a ejecutar ./mvnw clean test y los scripts justo antes de generarla, extrae las cifras y
    los nombres de las pruebas con un script (no a mano) e indica el commit sobre el que se generó.
+   La revisión final con criterio (docs/revisiones/2026-10-20-revision-final.md) recoge las
+   verificaciones, los hallazgos y el estado final de la V1; enlázala desde el README de la entrega.
 
 5. No hace falta ejecutar mvn test si solo cambia Markdown. Propón el commit con prefijo docs:
    y no lo hagas hasta que lo confirme.
