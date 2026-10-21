@@ -20,6 +20,17 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 
 ---
 
+## 2026-10-20 · Referencia al generador en las convenciones de idioma
+
+- **Descripción:** `conventions.md` indica, en la sección Idioma, que las rutas, `operationId`, campos y
+  enums del contrato se convierten en código mediante el generador OpenAPI, y enlaza
+  `resources/plugins.md`.
+- **Motivo:** explicar cómo llegan al código los nombres en inglés del contrato. No se añade ninguna
+  convención nueva.
+- **Archivos de spec modificados:** `conventions.md`.
+- **Compatibilidad del contrato:** no afecta.
+- **Commits:** `64d8887` (design).
+
 ## 2026-10-20 · Código generado en los modelos por frontera
 
 - **Descripción:** `architecture/architecture.md` §3 indica que los `*Request`, `*Response`, los enums del
