@@ -1,7 +1,7 @@
 # Revisión final con criterio · 2026-10-20
 
 > **Fecha:** 2026-10-20. **Commit revisado:** `26df59f` (código sin cambios desde `065cb8e`).
-> **Actualizada:** 2026-10-20 hasta `86828a6`, con los cambios posteriores del mismo día
+> **Actualizada:** 2026-10-20 hasta `53f6d21`, con los cambios posteriores del mismo día
 > (ver [Actualización posterior](#actualización-posterior-a-la-revisión)).
 > **Fuentes:** [`specs/`](../../specs/), [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md),
 > [`docs/sync-report.md`](../sync-report.md), [`PENDIENTES.md`](../../PENDIENTES.md) y `git log`.
@@ -93,10 +93,10 @@ Tareas abiertas en [`PENDIENTES.md`](../../PENDIENTES.md), todas fuera del alcan
 
 ## Actualización posterior a la revisión
 
-Después de `26df59f` se hicieron 46 commits el mismo día, hasta `86828a6`. Todos cambian documentación o
+Después de `26df59f` se hicieron 53 commits el mismo día, hasta `53f6d21`. Todos cambian documentación o
 specs en prosa: el código, el `pom.xml`, el contrato, la colección de Postman y los scripts de `tools/` no
 cambiaron. Por eso las verificaciones de arriba siguen siendo válidas; `spec_lint.py` y `spec_sync.py` se
-volvieron a ejecutar en `86828a6` con resultado OK (0 errores, 0 advertencias).
+volvieron a ejecutar en `53f6d21` con resultado OK (0 errores, 0 advertencias).
 
 ### Evidencia de la entrega regenerada
 
@@ -131,6 +131,24 @@ citadas en `plugins.md`.
 
 Cada cambio de `specs/` tiene su entrada en [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md), que pasa de 13
 a 23 entradas; los 38 commits que modifican `specs/` aparecen en alguna. Ninguno afecta al contrato.
+
+### Enlaces a esta revisión y comprobación de enlaces
+
+La primera actualización de esta revisión (`a758ea9`, hasta `86828a6`) se enlazó desde los documentos que
+muestran resultados fechados en `26df59f`, para explicar por qué siguen vigentes:
+[`docs/sync-report.md`](../sync-report.md) (`7c44df7`), [`docs/entrega/README.md`](../entrega/README.md)
+(`a552371`), la [matriz de trazabilidad](../entrega/matriz-trazabilidad.md) (`466c915`) y
+[`docs/tecnica/pruebas.md`](../tecnica/pruebas.md) (`53f6d21`); y desde los puntos de entrada
+[`README.md`](../../README.md) (`ea0f4d3`) y [`docs/tecnica/README.md`](../tecnica/README.md) (`1281a52`).
+Esos enlaces no citan hasta qué commit está actualizada la revisión: solo lo indica la cabecera de este
+documento, para no tener que corregir varios archivos cada vez que se actualice.
+
+**Decisiones de criterio:** no se enlazó desde `prompts/README.md`, `CLAUDE.md` ni `docs/tecnica/arquitectura.md`
+(ni el resto de `docs/tecnica/`), porque no muestran resultados ni estado: el índice de prompts sirve para
+elegir un prompt, y `CLAUDE.md` se carga en cada sesión de la IA y solo recoge fuentes de verdad y reglas.
+
+Una comprobación con script sobre los 49 archivos Markdown versionados, en `53f6d21`, dio **0 enlaces rotos,
+0 anclas rotas y ningún archivo sin enlaces entrantes** (fuera de `src/`).
 
 ## Conclusión
 

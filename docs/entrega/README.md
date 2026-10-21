@@ -55,7 +55,7 @@ La base de datos es H2 en memoria: los datos se pierden al reiniciar.
 Las cuatro verificaciones se ejecutaron el 2026-10-20 sobre `26df59f`, durante la
 [revisión final](../revisiones/2026-10-20-revision-final.md). Los archivos de `evidencia/` y la
 [matriz de trazabilidad](matriz-trazabilidad.md) se generaron sobre el mismo commit. Los commits
-posteriores, hasta `86828a6`, solo cambian documentación y specs en prosa: el código, el contrato y los
+posteriores solo cambian documentación y specs en prosa: el código, el contrato y los
 scripts no cambian, así que estas verificaciones siguen siendo válidas (ver la
 [actualización posterior](../revisiones/2026-10-20-revision-final.md#actualización-posterior-a-la-revisión)
 de la revisión).
@@ -67,7 +67,7 @@ de la revisión).
 | [`matriz-trazabilidad.md`](matriz-trazabilidad.md) | RF → US → CA → INV → operación → pruebas concretas. |
 | [`docs/tecnica/`](../tecnica/README.md) | Arquitectura, API, dominio, decisiones, pruebas y una ficha por operación. |
 | [`docs/sync-report.md`](../sync-report.md) | Diferencias specs ↔ implementación y resultados de las verificaciones. |
-| [`docs/revisiones/2026-10-20-revision-final.md`](../revisiones/2026-10-20-revision-final.md) | Revisión final con criterio: verificaciones, hallazgos con el commit que los resolvió, pendientes y estado final de la V1. Actualizada hasta `86828a6`. |
+| [`docs/revisiones/2026-10-20-revision-final.md`](../revisiones/2026-10-20-revision-final.md) | Revisión final con criterio: verificaciones, hallazgos con el commit que los resolvió, pendientes y estado final de la V1. Ver su [actualización posterior](../revisiones/2026-10-20-revision-final.md#actualización-posterior-a-la-revisión) para los cambios posteriores a `26df59f`. |
 | [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md) | Registro de cambios de las specs: motivo, archivos, compatibilidad del contrato y commits de cada cambio. |
 | [`specs/resources/plugins.md`](../../specs/resources/plugins.md) | Configuración del generador OpenAPI: plugin, parámetros del `pom.xml`, código generado y cómo regenerarlo. |
 | [`specs/traceability.md`](../../specs/traceability.md) | Matriz de trazabilidad de la spec (fuente de la matriz de esta entrega). |
