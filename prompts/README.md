@@ -21,6 +21,8 @@ confirmación.
 > [`specs/CHANGELOG.md`](../specs/CHANGELOG.md) y la documentación de entrega
 > ([`docs/entrega/`](../docs/entrega/README.md)): README, matriz de trazabilidad y evidencia, generadas
 > a partir de las specs, el código y ejecuciones recientes de `mvn test`, `spec_lint.py` y `spec_sync.py`.
+> También indica enlazar desde la entrega la revisión final con criterio
+> ([`docs/revisiones/2026-10-20-revision-final.md`](../docs/revisiones/2026-10-20-revision-final.md)).
 
 ## Orden habitual
 
