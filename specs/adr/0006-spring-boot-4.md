@@ -23,3 +23,5 @@ Usaremos Spring Boot 4.1.x (versión estable) con Java 25.
 
 - La arquitectura no cambia: la hexagonal (ADR-0001) no depende de la versión del framework.
 - Se debe verificar la compatibilidad de openapi-generator con Spring Boot 4 al generar la API.
+  La configuración resultante (`useSpringBoot4`, `useJackson3`) está documentada en
+  [`resources/plugins.md`](../resources/plugins.md).
