@@ -9,6 +9,8 @@
 | consultarReservas | ConsultarReservasUseCase | ConsultarReservasService | RF-05 / US05 | — | US05_CA01, US05_CA02 |
 | consultarDisponibilidad | ConsultarDisponibilidadUseCase | ConsultarDisponibilidadService | RF-05 / US05 | — | US05_CA03, US05_CA04 |
 
+Cada `operationId` es un método de la interfaz generada de su tag: `SociosApi` (registrarSocio), `ClasesApi` (crearClase) y `ReservasApi` (reservarPlaza, cancelarReserva, consultarReservas, consultarDisponibilidad), que implementa el controlador correspondiente. La configuración del generador está documentada en [`resources/plugins.md`](resources/plugins.md).
+
 ## Clases de prueba por operación
 
 Dónde están las pruebas `USxx_CAyy_...` de cada operación, por capa (`src/test/java/.../gimnasio/`). Las pruebas de dominio son JUnit puro; las de aplicación usan dobles en memoria sin Spring.
