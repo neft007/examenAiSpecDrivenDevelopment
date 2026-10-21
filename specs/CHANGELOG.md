@@ -20,6 +20,17 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 
 ---
 
+## 2026-10-20 · Catálogos y enums generados
+
+- **Descripción:** `domain/catalogs.md` añade una nota final: los catálogos se reflejan, con los mismos
+  valores y orden, en los enums del dominio y en los del contrato, que genera el generador OpenAPI (enlace a
+  `resources/plugins.md`); un valor fuera de catálogo en la entrada responde `400 VALIDATION_ERROR`.
+- **Motivo:** conectar la regla "un valor fuera de estos catálogos debe ser rechazado" con el código que
+  la aplica. Describe el comportamiento existente; no añade reglas.
+- **Archivos de spec modificados:** `domain/catalogs.md`.
+- **Compatibilidad del contrato:** no afecta.
+- **Commits:** `edfe0d1` (design).
+
 ## 2026-10-20 · Independencia del dominio respecto al código generado
 
 - **Descripción:** `architecture/domain-model.md` §4 añade que el dominio tampoco depende del código

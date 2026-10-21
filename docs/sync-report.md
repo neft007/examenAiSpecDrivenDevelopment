@@ -81,8 +81,8 @@ se generó sobre el mismo commit, `26df59f`.
   del generador. Coincide con el `pom.xml` (líneas 97–132) y con el código que produce
   `./mvnw clean generate-sources`: `SociosApi`, `ClasesApi`, `ReservasApi`, 9 DTO y 3 enums.
 - **Registro de cambios de las specs:** [`specs/CHANGELOG.md`](../specs/CHANGELOG.md) está actualizado
-  hasta `9c24690`. Tiene 21 entradas, todas con fecha, descripción, motivo, archivos modificados, compatibilidad
-  del contrato y commits. Los 36 commits que modifican `specs/` (`git log -- specs/`, sin contar los del
+  hasta `edfe0d1`. Tiene 22 entradas, todas con fecha, descripción, motivo, archivos modificados, compatibilidad
+  del contrato y commits. Los 37 commits que modifican `specs/` (`git log -- specs/`, sin contar los del
   propio `CHANGELOG.md`) aparecen en alguna entrada.
 - **Revisión final:** la revisión final con criterio
   ([`docs/revisiones/2026-10-20-revision-final.md`](revisiones/2026-10-20-revision-final.md)) recoge las
