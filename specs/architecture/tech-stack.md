@@ -14,6 +14,9 @@ Agregar o cambiar una tecnología requiere un ADR.
 | Generación de API | openapi-generator ≥ 7.22 (`spring`, `interfaceOnly`, `useSpringBoot4`, `useJackson3`) | Las interfaces por tag (`SociosApi`, `ClasesApi`, `ReservasApi`) y DTO web en `adapter.in.web.generated` | ADR-0006 |
 | Documentación de la API | springdoc-openapi 3.x (`springdoc-openapi-starter-webmvc-ui`) | Swagger UI que carga el contrato autoritativo (`/gimnasio-openapi.yaml`) | — |
 
+La configuración completa del generador de API (todos los parámetros del `pom.xml`, paquetes generados y
+cómo regenerarlo) está documentada en [`resources/plugins.md`](../resources/plugins.md).
+
 ## Restricciones
 
 - El paquete `domain` solo usa el JDK (sin Spring, JPA ni librerías externas).
