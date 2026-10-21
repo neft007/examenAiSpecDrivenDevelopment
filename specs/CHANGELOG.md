@@ -20,6 +20,16 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 
 ---
 
+## 2026-10-20 · Referencia a la configuración del generador en ADR-0006
+
+- **Descripción:** la consecuencia de ADR-0006 que pedía verificar la compatibilidad de openapi-generator
+  con Spring Boot 4 remite a `resources/plugins.md` (`useSpringBoot4`, `useJackson3`).
+- **Motivo:** dejar constancia de cómo se cumplió esa consecuencia. Contexto, decisión y estado del ADR
+  no cambian.
+- **Archivos de spec modificados:** `adr/0006-spring-boot-4.md`.
+- **Compatibilidad del contrato:** no afecta.
+- **Commits:** `6a3c22c` (design).
+
 ## 2026-10-20 · Enlace a la configuración del generador desde el stack
 
 - **Descripción:** `architecture/tech-stack.md` añade, bajo la tabla del stack, una línea que remite a
