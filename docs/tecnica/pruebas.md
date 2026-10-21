@@ -125,6 +125,11 @@ specs sean coherentes y que el código y las pruebas las sigan.
 | `spec_lint.py` | El contrato OpenAPI contra las specs: YAML y OpenAPI 3.x, enums iguales a `catalogs.md` y `lifecycle.md`, `operationId` y `x-spec-refs`, `ErrorResponse` en las 4xx y `$ref` que resuelven. | OK: 6 operaciones, 0 errores. |
 | `spec_sync.py` | El código y las pruebas contra las specs: cada `operationId` implementado en un controlador, cada criterio con una prueba `USxx_CAyy_`, la convención de nombres y las clases de `traceability.md`. | OK: 6 operaciones, 24 criterios, 110 métodos de prueba, 0 errores. |
 
+El commit de cada ejecución está en [`sync-report.md`](../sync-report.md#ejecuciones). La
+[revisión final](../revisiones/2026-10-20-revision-final.md), actualizada hasta `86828a6`, explica en su
+[actualización posterior](../revisiones/2026-10-20-revision-final.md#actualización-posterior-a-la-revisión)
+por qué estos resultados siguen siendo válidos: desde `26df59f` no cambiaron el código, el contrato ni los scripts.
+
 ```bash
 python tools/spec_lint.py
 python tools/spec_sync.py
