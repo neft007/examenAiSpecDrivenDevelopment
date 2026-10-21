@@ -111,3 +111,8 @@ corresponden a un criterio:
 El registro de cambios de las specs ([`specs/CHANGELOG.md`](../../specs/CHANGELOG.md)) documenta la
 evolución de los criterios e invariantes que aparecen en esta matriz; por ejemplo, la incorporación de
 US01 CA-06, US02 CA-05 y CA-06, e INV-16 e INV-17.
+
+La configuración del generador OpenAPI está documentada en
+[`specs/resources/plugins.md`](../../specs/resources/plugins.md) (añadido en `f2412b2`, después de generar esta
+matriz). De ahí salen las interfaces `SociosApi`, `ClasesApi` y `ReservasApi` que implementan los controladores
+de la columna Web.
