@@ -35,3 +35,6 @@ confirmación.
 
 - [`README.md`](../README.md) del proyecto: cómo ejecutar, arquitectura y uso de IA.
 - [`CLAUDE.md`](../CLAUDE.md): fuentes de verdad y reglas obligatorias que los prompts dan por supuestas.
+- [`specs/resources/plugins.md`](../specs/resources/plugins.md): configuración del generador OpenAPI, del
+  que salen las interfaces que implementan los controladores. `01-implementar-operacion.md` lo cita en el
+  paso de `adapter.in.web`.
