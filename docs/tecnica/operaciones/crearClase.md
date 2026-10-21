@@ -13,6 +13,9 @@
 - **Request** `CrearClaseRequest`: `nombre`, `instructor`, `fechaInicio`, `duracionMinutos`,
   `aforoMaximo` (todos obligatorios).
 - **201** `ClaseResponse` con cabecera `Location: /api/v1/clases/{id}`. La clase se crea en `PROGRAMADA`.
+- `CrearClaseRequest` y `ClaseResponse` se generan a partir del contrato, y `ClaseController` implementa
+  la interfaz generada `ClasesApi`. La configuración del generador está documentada en
+  [`specs/resources/plugins.md`](../../../specs/resources/plugins.md).
 
 ## Flujo
 
