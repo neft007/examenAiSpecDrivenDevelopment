@@ -14,6 +14,9 @@
 - **Ruta:** `claseId` (UUID). **Request** `ReservarPlazaRequest`: `socioId` (UUID, obligatorio).
 - **201** `ReservaResponse` en estado `CONFIRMADA`, con `fechaReserva` = instante del `Clock`.
   El contrato no declara `Location` porque no existe `GET /reservas/{id}`.
+- `ReservarPlazaRequest` y `ReservaResponse` se generan a partir del contrato, y `ReservaController`
+  implementa la interfaz generada `ReservasApi`. La configuración del generador está documentada en
+  [`specs/resources/plugins.md`](../../../specs/resources/plugins.md).
 
 ## Flujo
 
