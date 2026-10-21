@@ -20,6 +20,17 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 
 ---
 
+## 2026-10-20 · Independencia del dominio respecto al código generado
+
+- **Descripción:** `architecture/domain-model.md` §4 añade que el dominio tampoco depende del código
+  generado: sus enums son independientes de los que genera el generador OpenAPI (enlace a
+  `resources/plugins.md`) y la conversión ocurre solo en los `*WebMapper`.
+- **Motivo:** dejar explícito en el modelo de dominio lo que ya fija `architecture.md` §3. No es una
+  decisión nueva.
+- **Archivos de spec modificados:** `architecture/domain-model.md`.
+- **Compatibilidad del contrato:** no afecta.
+- **Commits:** `9c24690` (design).
+
 ## 2026-10-20 · Referencia al generador en las convenciones de idioma
 
 - **Descripción:** `conventions.md` indica, en la sección Idioma, que las rutas, `operationId`, campos y
