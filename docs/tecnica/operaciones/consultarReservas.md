@@ -9,6 +9,10 @@
 US05 tiene dos operaciones; las dos se documentan aquí. Ambas son de solo lectura
 (`@Transactional(readOnly = true)`) y no tienen invariantes propias.
 
+`ReservaPageResponse`, `DisponibilidadResponse` y el enum `EstadoReserva` del filtro `estado` se generan a
+partir del contrato, y `ReservaController` implementa las dos operaciones de la interfaz generada `ReservasApi`.
+La configuración del generador está documentada en [`specs/resources/plugins.md`](../../../specs/resources/plugins.md).
+
 ## consultarReservas
 
 `GET /api/v1/socios/{socioId}/reservas?estado={CONFIRMADA|CANCELADA}` · tag `Reservas` · actor: Socio
