@@ -47,7 +47,8 @@ Implementa la operación {{OPERACION}} de {{HISTORIA}}.
 
 7. adapter.in.web:
    - El controlador implementa la interfaz generada de su tag (SociosApi, ClasesApi, ReservasApi);
-     no edites el código generado.
+     no edites el código generado. La configuración del generador OpenAPI está documentada en
+     specs/resources/plugins.md.
    - El *WebMapper es el único sitio que convierte DTO <-> Command/Result, enums del contrato <->
      enums del dominio (valueOf(name())) e Instant <-> OffsetDateTime en UTC.
    - Devuelve exactamente el HTTP y las cabeceras del contrato.

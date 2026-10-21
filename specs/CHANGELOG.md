@@ -20,6 +20,14 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 
 ---
 
+## 2026-10-20 · Configuración del generador OpenAPI
+
+- **Descripción:** creación de `specs/resources/plugins.md` con la configuración del generador OpenAPI.
+- **Motivo:** documentar cómo se genera la API a partir del contrato y qué parámetros se usan.
+- **Archivos de spec modificados:** `resources/plugins.md`.
+- **Compatibilidad del contrato:** no afecta.
+- **Commits:** `f2412b2` (docs).
+
 ## 2026-10-20 · Corrección de RF-01: eliminar la línea redundante sobre la membresía
 
 - **Descripción:** se elimina de RF-01 la línea "El socio se crea con membresía `ACTIVA`". RF-01 conserva
