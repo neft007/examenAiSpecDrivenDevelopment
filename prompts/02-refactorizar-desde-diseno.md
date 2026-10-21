@@ -23,6 +23,8 @@ La spec cambió: {{CAMBIO}}. Referencia: {{SPEC_REF}}.
 
 2. Analiza el impacto antes de editar y muéstramelo:
    - Clases de producción afectadas, por capa (domain, application, adapters, config).
+   - Si cambia el contrato, regenera con ./mvnw clean generate-sources y revisa qué interfaces y
+     DTO generados cambian (configuración en specs/resources/plugins.md).
    - Pruebas afectadas, incluidos sus nombres USxx_CAyy_ si cambia el criterio que cubren.
    - Documentación derivada (docs/, README.md, PENDIENTES.md) que quedará desactualizada.
    - Si el cambio altera el comportamiento observable (HTTP, códigos de error, campos), dilo:
