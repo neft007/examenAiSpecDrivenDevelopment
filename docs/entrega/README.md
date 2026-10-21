@@ -71,6 +71,6 @@ de la revisión).
 | [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md) | Registro de cambios de las specs: motivo, archivos, compatibilidad del contrato y commits de cada cambio. |
 | [`specs/resources/plugins.md`](../../specs/resources/plugins.md) | Configuración del generador OpenAPI: plugin, parámetros del `pom.xml`, código generado y cómo regenerarlo. |
 | [`specs/traceability.md`](../../specs/traceability.md) | Matriz de trazabilidad de la spec (fuente de la matriz de esta entrega). |
-| [`tools/`](../../tools/README.md) | Scripts de validación `spec_lint.py` y `spec_sync.py`. |
+| [`tools/`](../../tools/README.md) | Scripts de validación `spec_lint.py`, `spec_sync.py` y `check_links.py`. |
 | [`postman/`](../../postman/gimnasio-reservas-flujo.postman_collection.json) | Colección con el flujo completo y los casos de error. |
 | [`prompts/`](../../prompts/README.md) | Prompts de IA: prompts reutilizables usados con Claude Code durante el desarrollo. |

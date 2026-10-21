@@ -7,7 +7,7 @@
 > **Alcance.** Este informe solo registra:
 >
 > 1. Las diferencias entre specs e implementación y cómo se resolvieron.
-> 2. Las verificaciones realizadas: `mvn test`, `spec_lint.py`, `spec_sync.py` y la colección de Postman.
+> 2. Las verificaciones realizadas: `mvn test`, `spec_lint.py`, `spec_sync.py`, `check_links.py` y la colección de Postman.
 >
 > No lista los archivos de documentación ni las entradas de [`PENDIENTES.md`](../PENDIENTES.md).
 > Tampoco corrige nada: cada diferencia se resuelve primero en la spec (o en el código, si la spec manda)
@@ -61,8 +61,9 @@ Diferencias que siguen abiertas entre lo que dicen las specs y lo que hace el c�
 | Coherencia de specs | `python tools/spec_lint.py` | ✅ OK: 6 operaciones, 0 errores, 0 advertencias. | `26df59f` |
 | Specs ↔ código y pruebas | `python tools/spec_sync.py` | ✅ OK: 6 operaciones en 3 controladores, 24 criterios, 110 métodos de prueba, 21 clases de `traceability.md`, 0 errores. Hay 22 pruebas sin prefijo `USxx_CAyy_`, que se admiten. | `26df59f` |
 | Aplicación en ejecución | `npx newman run postman/gimnasio-reservas-flujo.postman_collection.json` | ✅ 35 peticiones, 65 aserciones, 0 fallos, contra la aplicación recién arrancada (`./mvnw spring-boot:run`). `MEMBRESIA_VENCIDA` y `CLASE_YA_COMENZADA` no se pueden provocar por la API en V1. | `26df59f` |
+| Enlaces de la documentación | `python tools/check_links.py` | ✅ OK: 283 enlaces comprobados en 49 archivos Markdown, 0 enlaces rotos, 0 anclas rotas, 0 archivos versionados sin enlazar. | `d9300c6` |
 
-La evidencia de estas ejecuciones ([`surefire-resumen.md`](entrega/evidencia/surefire-resumen.md),
+La evidencia de `mvn test`, `spec_lint.py` y `spec_sync.py` ([`surefire-resumen.md`](entrega/evidencia/surefire-resumen.md),
 [`spec_lint.txt`](entrega/evidencia/spec_lint.txt) y [`spec_sync.txt`](entrega/evidencia/spec_sync.txt))
 se generó sobre el mismo commit, `26df59f`.
 
@@ -93,7 +94,8 @@ se generó sobre el mismo commit, `26df59f`.
 
 ## Cómo repetir la revisión
 
-1. Ejecutar `./mvnw clean test`, `python tools/spec_lint.py` y `python tools/spec_sync.py`. Si cambió el
-   código o la colección, ejecutar también la colección de Postman con la aplicación levantada.
+1. Ejecutar `./mvnw clean test`, `python tools/spec_lint.py`, `python tools/spec_sync.py` y
+   `python tools/check_links.py`. Si cambió el código o la colección, ejecutar también la colección de
+   Postman con la aplicación levantada.
 2. Revisar a mano lo que los scripts no cubren: los puertos, las invariantes y el stack.
 3. Anotar aquí las diferencias nuevas y actualizar la tabla de ejecuciones, en un commit `docs:`.

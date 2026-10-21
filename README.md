@@ -112,18 +112,20 @@ DNI, email y fechas se generan en cada ejecución, de modo que se puede repetir 
 
 ## 🛠️ Herramientas de validación
 
-La carpeta [`tools/`](tools/) contiene dos scripts de Python 3 (requieren PyYAML) que complementan `./mvnw clean test`:
+La carpeta [`tools/`](tools/) contiene tres scripts de Python 3 que complementan `./mvnw clean test` (`spec_lint.py` y `spec_sync.py` requieren PyYAML):
 
 | Script | Qué valida |
 | :--- | :--- |
 | `spec_lint.py` | El contrato OpenAPI contra las specs: YAML y OpenAPI 3.x válidos, enums iguales a los catálogos, `operationId` y `x-spec-refs` en cada operación, `ErrorResponse` en las respuestas 4xx y `$ref` que resuelven. |
 | `spec_sync.py` | Que el código y las pruebas sigan las specs: cada `operationId` implementado en un controlador, cada criterio de aceptación con una prueba `USxx_CAyy_`, la convención de nombres y las clases de prueba de `traceability.md`. |
+| `check_links.py` | Que la documentación no tenga enlaces rotos: cada enlace relativo de los Markdown apunta a un archivo existente, cada ancla a un título real, y ningún archivo versionado queda sin enlazar. |
 
 Desde la raíz del repositorio (o con `python3` si no existe `python`):
 
 ```bash
 python tools/spec_lint.py
 python tools/spec_sync.py
+python tools/check_links.py
 ```
 
 Devuelven `0` si todo está bien y `1` si hay errores. El detalle de cada regla está en [`tools/README.md`](tools/README.md).
