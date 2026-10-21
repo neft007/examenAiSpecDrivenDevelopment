@@ -101,3 +101,8 @@ La V1 está **completa y coherente con sus specs**:
 
 Lo que queda abierto está registrado en `PENDIENTES.md`, justificado y fuera del alcance de V1. Ninguno
 de esos puntos contradice una spec vigente.
+
+## Referencias
+
+La configuración del generador OpenAPI está documentada en
+[`specs/resources/plugins.md`](../../specs/resources/plugins.md) (añadido después de esta revisión, en `f2412b2`).
