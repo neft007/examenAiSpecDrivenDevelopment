@@ -54,7 +54,10 @@ Una ficha por operación del contrato: entrada, flujo, reglas, errores y pruebas
 
 - [`../revisiones/2026-10-20-revision-final.md`](../revisiones/2026-10-20-revision-final.md): revisión con
   criterio al cerrar la V1: verificaciones automáticas, hallazgos del desarrollo con el commit que los
-  resolvió, pendientes abiertos y estado final del proyecto.
+  resolvió, pendientes abiertos y estado final del proyecto. Está actualizada hasta `86828a6`: su
+  [actualización posterior](../revisiones/2026-10-20-revision-final.md#actualización-posterior-a-la-revisión)
+  recoge la documentación del generador OpenAPI ([`specs/resources/plugins.md`](../../specs/resources/plugins.md))
+  y la evidencia regenerada de la entrega.
 
 ### Colección de Postman
 
