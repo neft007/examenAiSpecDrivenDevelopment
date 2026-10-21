@@ -23,8 +23,14 @@ verificaciones automáticas se volvieron a ejecutar ese día sobre el commit `26
 | Specs ↔ código y pruebas | `python3 tools/spec_sync.py` | ✅ OK: 6 operaciones en 3 controladores, 24 criterios, 110 métodos de prueba, 21 clases de `traceability.md`, 0 errores. 22 pruebas sin prefijo `USxx_CAyy_` (admitidas). |
 | Aplicación en ejecución | `npx newman run postman/gimnasio-reservas-flujo.postman_collection.json` | ✅ 35 peticiones, 65 aserciones, 0 fallos, con la aplicación recién arrancada (`./mvnw spring-boot:run`). |
 
-Detalle de las pruebas por capa en [`docs/entrega/evidencia/`](../entrega/evidencia/) y de los scripts en
-[`tools/README.md`](../../tools/README.md).
+La evidencia de estas ejecuciones se regeneró sobre el mismo commit, `26df59f`:
+
+- [`surefire-resumen.md`](../entrega/evidencia/surefire-resumen.md): pruebas por capa y por clase.
+- [`spec_lint.txt`](../entrega/evidencia/spec_lint.txt): salida de `spec_lint.py`.
+- [`spec_sync.txt`](../entrega/evidencia/spec_sync.txt): salida de `spec_sync.py`.
+
+La [matriz de trazabilidad](../entrega/matriz-trazabilidad.md) de la entrega también se regeneró sobre
+`26df59f`. Las reglas de los scripts están en [`tools/README.md`](../../tools/README.md).
 
 ## Hallazgos
 
