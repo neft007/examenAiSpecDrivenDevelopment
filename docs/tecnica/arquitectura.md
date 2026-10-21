@@ -37,6 +37,10 @@ flowchart LR
 | `adapter.out.persistence` | Implementa los puertos de salida con Spring Data JPA. | `*PersistenceAdapter`, `*JpaEntity`, `*PersistenceMapper`, `SpringData*Jpa` |
 | `config` | Composition root. | `ClockConfiguration` |
 
+Las interfaces que implementa `adapter.in.web` (`SociosApi`, `ClasesApi`, `ReservasApi`) se generan a partir del
+contrato; la configuración del generador está documentada en
+[`specs/resources/plugins.md`](../../specs/resources/plugins.md).
+
 **Regla de dependencia** (tabla completa en [`architecture.md` §2](../../specs/architecture/architecture.md#2-capas-y-regla-de-dependencia)):
 
 - `domain` no depende de nada (ni Spring, ni JPA, ni HTTP).
