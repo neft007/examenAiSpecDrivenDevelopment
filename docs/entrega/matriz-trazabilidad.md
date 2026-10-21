@@ -116,3 +116,9 @@ La configuración del generador OpenAPI está documentada en
 [`specs/resources/plugins.md`](../../specs/resources/plugins.md) (añadido en `f2412b2`, después de generar esta
 matriz). De ahí salen las interfaces `SociosApi`, `ClasesApi` y `ReservasApi` que implementan los controladores
 de la columna Web.
+
+La [revisión final](../revisiones/2026-10-20-revision-final.md) está actualizada hasta `86828a6`; su
+[actualización posterior](../revisiones/2026-10-20-revision-final.md#actualización-posterior-a-la-revisión)
+recoge los cambios hechos después de `26df59f`. Ninguno afecta a esta matriz: no cambiaron las pruebas ni las
+historias de usuario, y `specs/traceability.md` solo añadió una nota sobre las interfaces generadas
+(`2bb79ee`), sin cambiar sus tablas.
