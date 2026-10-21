@@ -146,6 +146,7 @@ classDiagram
 - La unicidad del DNI y del email (INV-02, INV-03) no puede validarla `Socio` solo: un objeto no conoce a los demás socios. Se valida en el servicio de aplicación, consultando el puerto de salida.
 - El aforo y el solapamiento de horarios (INV-11, INV-12) se validan en el servicio de reserva: requieren conocer otras reservas, algo que el agregado `Reserva` no puede hacer por sí solo.
 - El dominio no contiene puertos ni conoce la persistencia: solo modelo, reglas y excepciones de dominio. Los puertos se definen en application (ver `architecture.md`).
+- Tampoco depende del código generado a partir del contrato: los enums del dominio (`Membresia`, `EstadoClase`, `EstadoReserva`) son independientes de los que genera el generador OpenAPI en `adapter.in.web.generated.model` (configuración en [`resources/plugins.md`](../resources/plugins.md)). La conversión ocurre solo en los `*WebMapper` (`architecture.md` §3).
 - Reconstitución: `Socio.restore(...)`, `Clase.restore(...)` y `Reserva.restore(...)` reconstruyen entidades ya guardadas sin aplicar reglas de transición. Los usan solo los adaptadores de persistencia.
 - Tiempo: los métodos que modifican entidades reciben un `java.time.Clock` para fijar las fechas, de modo que las pruebas controlan el tiempo.
 - El email se almacena con la longitud por defecto de JPA (255 caracteres) porque ninguna spec define una longitud máxima; el formato se valida en el dominio con `Email`.
