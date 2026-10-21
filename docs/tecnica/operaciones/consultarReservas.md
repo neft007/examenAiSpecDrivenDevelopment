@@ -27,6 +27,8 @@ ConsultarReservasService:
   findBySocioId(socioId)   → filtro por estado si se indica → ReservaPageResult
 ```
 
+El diagrama de secuencia de esta operación está en [diagramas.md](../diagramas.md#consultarreservas-us05).
+
 | Caso | Respuesta | CA |
 | :--- | :--- | :--- |
 | Devuelve solo las reservas del socio (vacío si no tiene) | 200 | CA-01 |
@@ -47,6 +49,8 @@ ConsultarDisponibilidadService:
   findById(claseId)                                → 404 CLASE_NOT_FOUND
   countByClaseIdAndEstado(claseId, CONFIRMADA)     → DisponibilidadResult
 ```
+
+El diagrama de secuencia de esta operación está en [diagramas.md](../diagramas.md#consultardisponibilidad-us05).
 
 | Caso | Respuesta | CA |
 | :--- | :--- | :--- |

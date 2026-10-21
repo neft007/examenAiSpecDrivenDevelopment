@@ -38,6 +38,8 @@ INV-09 a INV-12 viven en el servicio porque necesitan el socio, la clase y otras
 `Reserva` solo crea la reserva. El solapamiento se consulta en BD uniendo `reservas` con `clases`
 por `fechaInicio`.
 
+El diagrama de secuencia de esta operación está en [diagramas.md](../diagramas.md#reservarplaza-us03).
+
 ## Limitaciones conocidas
 
 Anotadas en [`PENDIENTES.md`](../../../PENDIENTES.md):

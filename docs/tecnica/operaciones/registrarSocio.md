@@ -31,6 +31,8 @@ SocioController → SocioWebMapper.toCommand → RegistrarSocioUseCase.registrar
   → SocioResult → SocioWebMapper.toResponse → 201
 ```
 
+El diagrama de secuencia de esta operación está en [diagramas.md](../diagramas.md#registrarsocio-us01).
+
 ## Reglas y errores
 
 | Regla | Invariante | Respuesta | CA |

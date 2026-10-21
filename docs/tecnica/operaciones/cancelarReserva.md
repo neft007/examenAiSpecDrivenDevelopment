@@ -37,6 +37,8 @@ ReservaController → ReservaWebMapper.toCancelarCommand → CancelarReservaUseC
 Las dos reglas viven en `Reserva.cancelar()`. El servicio solo aporta la fecha de inicio de la clase,
 que la reserva no conoce.
 
+El diagrama de secuencia de esta operación está en [diagramas.md](../diagramas.md#cancelarreserva-us04).
+
 ## Reglas y errores
 
 | Regla | Invariante | Respuesta | CA |

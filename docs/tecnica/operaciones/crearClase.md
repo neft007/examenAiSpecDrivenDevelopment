@@ -29,6 +29,8 @@ ClaseController → ClaseWebMapper.toCommand → CrearClaseUseCase.crear
 
 Todas las reglas viven en `Clase.crear()`; el servicio solo orquesta.
 
+El diagrama de secuencia de esta operación está en [diagramas.md](../diagramas.md#crearclase-us02).
+
 ## Reglas y errores
 
 | Regla | Invariante | Respuesta | CA |
