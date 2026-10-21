@@ -1,6 +1,6 @@
 # Informe de sincronización specs ↔ implementación
 
-> **Última verificación:** 2026-10-20, commit `f985d29`.
+> **Última verificación:** 2026-10-20, commit `26df59f`.
 > **Fuentes comparadas:** todo [`specs/`](../specs/), `src/main/java`, `src/test/java`, `src/main/resources`
 > y `pom.xml`.
 >
@@ -57,10 +57,10 @@ Diferencias que siguen abiertas entre lo que dicen las specs y lo que hace el c�
 
 | Verificación | Comando | Resultado | Commit |
 | :--- | :--- | :--- | :--- |
-| Pruebas automáticas | `./mvnw clean test` | ✅ 162 pruebas, 0 fallos, 0 errores. | `f985d29` |
-| Coherencia de specs | `python tools/spec_lint.py` | ✅ OK: 6 operaciones, 0 errores, 0 advertencias. | `f985d29` |
-| Specs ↔ código y pruebas | `python tools/spec_sync.py` | ✅ OK: 6 operaciones en 3 controladores, 24 criterios, 110 métodos de prueba, 21 clases de `traceability.md`, 0 errores. Hay 22 pruebas sin prefijo `USxx_CAyy_`, que se admiten. | `f985d29` |
-| Aplicación en ejecución | `npx newman run postman/gimnasio-reservas-flujo.postman_collection.json` | ✅ 2026-10-20: 35 peticiones, 65 aserciones, 0 fallos, contra la aplicación recién arrancada (`./mvnw spring-boot:run`). `MEMBRESIA_VENCIDA` y `CLASE_YA_COMENZADA` no se pueden provocar por la API en V1. | `065cb8e` |
+| Pruebas automáticas | `./mvnw clean test` | ✅ 162 pruebas, 0 fallos, 0 errores. | `26df59f` |
+| Coherencia de specs | `python tools/spec_lint.py` | ✅ OK: 6 operaciones, 0 errores, 0 advertencias. | `26df59f` |
+| Specs ↔ código y pruebas | `python tools/spec_sync.py` | ✅ OK: 6 operaciones en 3 controladores, 24 criterios, 110 métodos de prueba, 21 clases de `traceability.md`, 0 errores. Hay 22 pruebas sin prefijo `USxx_CAyy_`, que se admiten. | `26df59f` |
+| Aplicación en ejecución | `npx newman run postman/gimnasio-reservas-flujo.postman_collection.json` | ✅ 35 peticiones, 65 aserciones, 0 fallos, contra la aplicación recién arrancada (`./mvnw spring-boot:run`). `MEMBRESIA_VENCIDA` y `CLASE_YA_COMENZADA` no se pueden provocar por la API en V1. | `26df59f` |
 
 ### Revisión manual
 
