@@ -13,6 +13,9 @@
 - **Request** `RegistrarSocioRequest`: `dni`, `nombre`, `email` (todos obligatorios).
 - **201** `SocioResponse` con cabecera `Location: /api/v1/socios/{id}`. El socio se crea con membresía
   `ACTIVA` y `fechaAlta` = instante del `Clock`.
+- `RegistrarSocioRequest` y `SocioResponse` se generan a partir del contrato, y `SocioController` implementa
+  la interfaz generada `SociosApi`. La configuración del generador está documentada en
+  [`specs/resources/plugins.md`](../../../specs/resources/plugins.md).
 
 ## Flujo
 
