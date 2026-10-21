@@ -20,6 +20,16 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 
 ---
 
+## 2026-10-20 · Interfaz generada de cada operación en la matriz de trazabilidad
+
+- **Descripción:** `traceability.md` añade, bajo la tabla principal, una nota que relaciona cada
+  `operationId` con la interfaz generada de su tag (`SociosApi`, `ClasesApi`, `ReservasApi`) y enlaza
+  `resources/plugins.md`.
+- **Motivo:** hacer explícito en la trazabilidad de dónde sale la interfaz que implementa cada controlador.
+- **Archivos de spec modificados:** `traceability.md`.
+- **Compatibilidad del contrato:** no afecta.
+- **Commits:** `2bb79ee` (design).
+
 ## 2026-10-20 · Configuración del generador OpenAPI
 
 - **Descripción:** creación de `specs/resources/plugins.md` con la configuración del generador OpenAPI.
