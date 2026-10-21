@@ -62,6 +62,10 @@ Diferencias que siguen abiertas entre lo que dicen las specs y lo que hace el c�
 | Specs ↔ código y pruebas | `python tools/spec_sync.py` | ✅ OK: 6 operaciones en 3 controladores, 24 criterios, 110 métodos de prueba, 21 clases de `traceability.md`, 0 errores. Hay 22 pruebas sin prefijo `USxx_CAyy_`, que se admiten. | `26df59f` |
 | Aplicación en ejecución | `npx newman run postman/gimnasio-reservas-flujo.postman_collection.json` | ✅ 35 peticiones, 65 aserciones, 0 fallos, contra la aplicación recién arrancada (`./mvnw spring-boot:run`). `MEMBRESIA_VENCIDA` y `CLASE_YA_COMENZADA` no se pueden provocar por la API en V1. | `26df59f` |
 
+La evidencia de estas ejecuciones ([`surefire-resumen.md`](entrega/evidencia/surefire-resumen.md),
+[`spec_lint.txt`](entrega/evidencia/spec_lint.txt) y [`spec_sync.txt`](entrega/evidencia/spec_sync.txt))
+se generó sobre el mismo commit, `26df59f`.
+
 ### Revisión manual
 
 - **Contrato ↔ controladores:** `SocioController implements SociosApi`, `ClaseController implements ClasesApi`,
