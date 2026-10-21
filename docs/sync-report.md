@@ -77,6 +77,9 @@ Diferencias que siguen abiertas entre lo que dicen las specs y lo que hace el c�
   `3a37cd1`. Tiene 13 entradas, todas con fecha, descripci처n, motivo, archivos modificados, compatibilidad
   del contrato y commits. Los 28 commits que modifican `specs/` (`git log -- specs/`, sin contar los del
   propio `CHANGELOG.md`) aparecen en alguna entrada.
+- **Revisi처n final:** la revisi처n final con criterio
+  ([`docs/revisiones/2026-10-20-revision-final.md`](revisiones/2026-10-20-revision-final.md)) recoge las
+  verificaciones, los hallazgos con el commit que los resolvi처, los pendientes y el estado final de la V1.
 
 ## C처mo repetir la revisi처n
 
