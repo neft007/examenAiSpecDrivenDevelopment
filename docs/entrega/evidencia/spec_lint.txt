@@ -1,2 +1,3 @@
+# Generado sobre 26df59f · 2026-10-20 · python3 tools/spec_lint.py
 spec_lint: specs/api/gimnasio-openapi.yaml, specs/domain/catalogs.md, specs/domain/lifecycle.md
 Resultado: OK (6 operaciones; 0 errores, 0 advertencias)

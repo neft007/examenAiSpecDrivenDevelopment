@@ -1,6 +1,6 @@
 # Entrega final - Sistema de Reservas para Gimnasio
 
-> **Fecha:** 2026-10-20 · **Verificaciones ejecutadas sobre el commit:** `26df59f` · **Evidencia generada sobre:** `5476672`.
+> **Fecha:** 2026-10-20 · **Verificaciones y evidencia generadas sobre el commit:** `26df59f`.
 > Proyecto desarrollado con Spec-Driven Development: [`specs/`](../../specs/) es la fuente única de verdad.
 
 ## Estado del proyecto
@@ -53,9 +53,8 @@ La base de datos es H2 en memoria: los datos se pierden al reiniciar.
 | Aplicación en ejecución | `npx newman run postman/gimnasio-reservas-flujo.postman_collection.json` | ✅ 35 peticiones, 65 aserciones, 0 fallos | [`sync-report.md`](../sync-report.md#ejecuciones) |
 
 Las cuatro verificaciones se ejecutaron el 2026-10-20 sobre `26df59f`, durante la
-[revisión final](../revisiones/2026-10-20-revision-final.md). Los archivos de `evidencia/` se generaron
-sobre `5476672`: entre ambos commits solo cambió documentación (y se añadió `specs/CHANGELOG.md`), y la
-salida de `spec_lint.py` y `spec_sync.py` sobre `26df59f` es idéntica a la guardada.
+[revisión final](../revisiones/2026-10-20-revision-final.md). Los archivos de `evidencia/` y la
+[matriz de trazabilidad](matriz-trazabilidad.md) se generaron sobre el mismo commit.
 
 ## Documentación
 

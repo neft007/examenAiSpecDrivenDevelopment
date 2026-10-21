@@ -1,3 +1,4 @@
+# Generado sobre 26df59f · 2026-10-20 · python3 tools/spec_sync.py
 spec_sync: specs/api/gimnasio-openapi.yaml ↔ src/main/java, specs/user-stories ↔ src/test/java
   [INFO]  22 pruebas sin prefijo USxx_CAyy_ (admitidas: no cubren un CA concreto)
 Resultado: OK (6 operaciones en 3 controladores, 24 criterios, 110 métodos de prueba, 21 clases en traceability.md; 0 errores, 0 advertencias)

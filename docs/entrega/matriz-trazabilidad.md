@@ -4,8 +4,9 @@
 > [`specs/requirements/functional.md`](../../specs/requirements/functional.md),
 > [`specs/user-stories/`](../../specs/user-stories/),
 > [`specs/architecture/domain-model.md`](../../specs/architecture/domain-model.md) §3,
-> [ADR-0004](../../specs/adr/0004-codigos-de-error.md) y los métodos de prueba de `src/test/java`,
-> extraídos sobre el commit `5476672`.
+> [ADR-0004](../../specs/adr/0004-codigos-de-error.md) y los métodos de prueba de `src/test/java`.
+>
+> **Generado sobre `26df59f`** (2026-10-20).
 
 Cada fila cruza un criterio de aceptación con la invariante que lo respalda, el error que produce y las
 pruebas que lo verifican, agrupadas por capa. Las pruebas se citan como `Clase.método`.
