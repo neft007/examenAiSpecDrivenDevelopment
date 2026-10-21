@@ -15,6 +15,10 @@
 | Transversal | Slice web | `GlobalExceptionHandlerTest` con un controlador de prueba | Cada fila de ADR-0004 y el 500 genérico de ADR-0007. |
 | Arranque | Integración | `@SpringBootTest` (`GimnasioReservasApplicationTests`) | Que el contexto completo se ensambla. |
 
+Las pruebas web ejercitan los DTO generados a partir del contrato: sus anotaciones de validación
+(`@Pattern`, `@Size`, `@NotNull`…) las produce el generador con `useBeanValidation`. La configuración del
+generador está documentada en [`specs/resources/plugins.md`](../../specs/resources/plugins.md).
+
 **Convención de nombres:** `USxx_CAyy_descripcionEnIngles`. Las pruebas que no cubren un CA concreto
 (recurso inexistente, `restore`, casos de error transversales) usan un nombre descriptivo sin prefijo.
 
