@@ -56,3 +56,5 @@ sirva en `/gimnasio-openapi.yaml`.
 El contrato [`specs/api/gimnasio-openapi.yaml`](../api/gimnasio-openapi.yaml) es la fuente de verdad.
 El código generado **no se edita a mano**: para cambiar una interfaz o un DTO se cambia el contrato
 (commit `contract:`) y se regenera.
+
+Si cambia la configuración del plugin en el `pom.xml`, se actualiza este documento (y las líneas citadas).
