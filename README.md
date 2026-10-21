@@ -140,6 +140,7 @@ Devuelven `0` si todo está bien y `1` si hay errores. El detalle de cada regla 
 - [Stack tecnológico](specs/architecture/tech-stack.md)
 - [Decisiones de arquitectura (ADRs)](specs/adr/)
 - [Contrato OpenAPI](specs/api/gimnasio-openapi.yaml)
+- [Configuración del generador OpenAPI](specs/resources/plugins.md): plugin `openapi-generator-maven-plugin` 7.22.0, parámetros del `pom.xml` y cómo regenerar las interfaces y los DTO.
 - [Matriz de trazabilidad](specs/traceability.md)
 - [Convenciones del proyecto](specs/conventions.md)
 - [Registro de cambios de las specs](specs/CHANGELOG.md)

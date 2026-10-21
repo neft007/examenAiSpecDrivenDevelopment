@@ -28,6 +28,12 @@ Una ficha por operación del contrato: entrada, flujo, reglas, errores y pruebas
 
 `consultarDisponibilidad` se documenta en la ficha de `consultarReservas` porque las dos pertenecen a US05.
 
+### Configuración del generador OpenAPI
+
+- [`specs/resources/plugins.md`](../../specs/resources/plugins.md): plugin `openapi-generator-maven-plugin`
+  7.22.0, qué genera (`SociosApi`, `ClasesApi`, `ReservasApi` y los DTO), sus parámetros en el `pom.xml`
+  y cómo regenerarlo. Complementa [arquitectura.md](arquitectura.md) y [api.md](api.md).
+
 ### Sincronización
 
 - [`../sync-report.md`](../sync-report.md): diferencias detectadas entre specs e implementación.

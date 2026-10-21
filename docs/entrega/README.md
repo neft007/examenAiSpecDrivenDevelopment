@@ -65,6 +65,7 @@ Las cuatro verificaciones se ejecutaron el 2026-10-20 sobre `26df59f`, durante l
 | [`docs/sync-report.md`](../sync-report.md) | Diferencias specs ↔ implementación y resultados de las verificaciones. |
 | [`docs/revisiones/2026-10-20-revision-final.md`](../revisiones/2026-10-20-revision-final.md) | Revisión final con criterio: verificaciones, hallazgos con el commit que los resolvió, pendientes y estado final de la V1. |
 | [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md) | Registro de cambios de las specs: motivo, archivos, compatibilidad del contrato y commits de cada cambio. |
+| [`specs/resources/plugins.md`](../../specs/resources/plugins.md) | Configuración del generador OpenAPI: plugin, parámetros del `pom.xml`, código generado y cómo regenerarlo. |
 | [`specs/traceability.md`](../../specs/traceability.md) | Matriz de trazabilidad de la spec (fuente de la matriz de esta entrega). |
 | [`tools/`](../../tools/README.md) | Scripts de validación `spec_lint.py` y `spec_sync.py`. |
 | [`postman/`](../../postman/gimnasio-reservas-flujo.postman_collection.json) | Colección con el flujo completo y los casos de error. |

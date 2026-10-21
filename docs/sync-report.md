@@ -77,6 +77,9 @@ se generó sobre el mismo commit, `26df59f`.
   cubre todas las filas y el 500 sin detalles internos.
 - **Stack:** Java 25, Spring Boot 4.1.1, openapi-generator 7.22.0 y springdoc 3.1.1 en `pom.xml`, coherentes con
   `tech-stack.md`; la consola H2 y Swagger UI responden en `/h2-console` y `/swagger-ui.html`.
+- **Generador OpenAPI:** [`specs/resources/plugins.md`](../specs/resources/plugins.md) documenta la configuración
+  del generador. Coincide con el `pom.xml` (líneas 97–132) y con el código que produce
+  `./mvnw clean generate-sources`: `SociosApi`, `ClasesApi`, `ReservasApi`, 9 DTO y 3 enums.
 - **Registro de cambios de las specs:** [`specs/CHANGELOG.md`](../specs/CHANGELOG.md) está actualizado en
   `3a37cd1`. Tiene 13 entradas, todas con fecha, descripción, motivo, archivos modificados, compatibilidad
   del contrato y commits. Los 28 commits que modifican `specs/` (`git log -- specs/`, sin contar los del

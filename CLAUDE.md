@@ -17,6 +17,9 @@ de verdad: nada se implementa si no está especificado primero.
 Registro de cambios de las specs: `specs/CHANGELOG.md` (mantener actualizado cuando cambien las specs).
 No es fuente de verdad: registra cómo y por qué cambiaron las anteriores.
 
+Configuración del generador OpenAPI: `specs/resources/plugins.md` (de dónde salen las interfaces de la regla 2).
+El código generado no se edita a mano: se cambia el contrato y se regenera.
+
 ## Reglas obligatorias
 1. **Si la spec no alcanza, DETENTE.** No inventes campos, reglas, estados, rutas ni códigos de error.
 2. **Contrato 1:1:** el controlador implementa la interfaz generada correspondiente a su tag (`SociosApi`, `ClasesApi`, `ReservasApi`).
