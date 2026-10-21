@@ -87,6 +87,10 @@ se generó sobre el mismo commit, `26df59f`.
 - **Revisión final:** la revisión final con criterio
   ([`docs/revisiones/2026-10-20-revision-final.md`](revisiones/2026-10-20-revision-final.md)) recoge las
   verificaciones, los hallazgos con el commit que los resolvió, los pendientes y el estado final de la V1.
+  Está actualizada hasta `86828a6`: su
+  [actualización posterior](revisiones/2026-10-20-revision-final.md#actualización-posterior-a-la-revisión)
+  confirma que el código, el contrato y los scripts no cambiaron desde `26df59f`, por lo que las
+  ejecuciones de arriba siguen siendo válidas.
 
 ## Cómo repetir la revisión
 
