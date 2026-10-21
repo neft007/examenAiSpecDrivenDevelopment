@@ -103,3 +103,6 @@ Una por cada fila de ADR-0004, todas subclases de `DomainException(message, deta
 
 El registro de cambios de las specs ([`specs/CHANGELOG.md`](../../specs/CHANGELOG.md)) documenta la
 evolución de las invariantes (por ejemplo, INV-16 e INV-17).
+
+Los diagramas de secuencia de cada operación están en [diagramas.md](diagramas.md); muestran en qué paso del
+flujo se comprueba cada invariante y qué error produce.

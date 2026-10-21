@@ -78,6 +78,9 @@ Todas las respuestas de error usan `ErrorResponse { code, message, details[] }`.
 Tabla completa con invariantes en [ADR-0004](../../specs/adr/0004-codigos-de-error.md).
 En los errores de Bean Validation, `details` lleva una entrada `campo: mensaje` por cada campo inválido.
 
+En qué paso del flujo de cada operación se produce cada error se ve en sus diagramas de secuencia, en
+[diagramas.md](diagramas.md).
+
 ## Ejemplo
 
 ```http
