@@ -14,6 +14,9 @@
 
 - **Ruta:** `reservaId` (UUID). Sin cuerpo.
 - **200** `ReservaResponse` en estado `CANCELADA`. `fechaReserva` no cambia.
+- `ReservaResponse` se genera a partir del contrato, y `ReservaController` implementa la interfaz generada
+  `ReservasApi`. La configuración del generador está documentada en
+  [`specs/resources/plugins.md`](../../../specs/resources/plugins.md).
 
 Es una acción de negocio (ADR-0002): el estado nunca se edita con `PUT`/`PATCH`.
 
