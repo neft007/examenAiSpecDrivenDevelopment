@@ -109,4 +109,5 @@ openapi-generator 7.22 y springdoc-openapi 3.x. Detalle en
 
 El diagrama de secuencia completo de `reservarPlaza` está en
 [`architecture.md` §6](../../specs/architecture/architecture.md#6-flujo-de-ejemplo-reservar-plaza-us03);
-su resumen está en [operaciones/reservarPlaza.md](operaciones/reservarPlaza.md).
+su resumen está en [operaciones/reservarPlaza.md](operaciones/reservarPlaza.md). Los diagramas de secuencia de
+las seis operaciones y el de componentes están en [diagramas.md](diagramas.md).

@@ -148,6 +148,7 @@ Devuelven `0` si todo está bien y `1` si hay errores. El detalle de cada regla 
 - [Registro de cambios de las specs](specs/CHANGELOG.md)
 - [Tareas pendientes](PENDIENTES.md)
 - [Documentación técnica](docs/tecnica/README.md): resumen derivado de las specs y el código (arquitectura, API, dominio, decisiones, pruebas y operaciones).
+- [Diagramas](docs/tecnica/diagramas.md): un diagrama de secuencia por operación, con sus invariantes y errores, y el diagrama de componentes adaptador → puerto → servicio.
 - [Entrega final](docs/entrega/README.md): estado del proyecto, verificaciones y evidencia.
 - [Informe de sincronización](docs/sync-report.md): diferencias entre specs e implementación y su resolución.
 - Revisión final: [`docs/revisiones/2026-10-20-revision-final.md`](docs/revisiones/2026-10-20-revision-final.md) (ver su [actualización posterior](docs/revisiones/2026-10-20-revision-final.md#actualización-posterior-a-la-revisión)).

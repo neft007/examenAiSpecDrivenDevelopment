@@ -66,6 +66,7 @@ de la revisión).
 | :--- | :--- |
 | [`matriz-trazabilidad.md`](matriz-trazabilidad.md) | RF → US → CA → INV → operación → pruebas concretas. |
 | [`docs/tecnica/`](../tecnica/README.md) | Arquitectura, API, dominio, decisiones, pruebas y una ficha por operación. |
+| [`docs/tecnica/diagramas.md`](../tecnica/diagramas.md) | Diagramas de secuencia de las seis operaciones (invariantes y errores de ADR-0004) y de componentes. |
 | [`docs/sync-report.md`](../sync-report.md) | Diferencias specs ↔ implementación y resultados de las verificaciones. |
 | [`docs/revisiones/2026-10-20-revision-final.md`](../revisiones/2026-10-20-revision-final.md) | Revisión final con criterio: verificaciones, hallazgos con el commit que los resolvió, pendientes y estado final de la V1. Ver su [actualización posterior](../revisiones/2026-10-20-revision-final.md#actualización-posterior-a-la-revisión) para los cambios posteriores a `26df59f`. |
 | [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md) | Registro de cambios de las specs: motivo, archivos, compatibilidad del contrato y commits de cada cambio. |

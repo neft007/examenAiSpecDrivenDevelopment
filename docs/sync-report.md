@@ -81,6 +81,10 @@ se generó sobre el mismo commit, `26df59f`.
 - **Generador OpenAPI:** [`specs/resources/plugins.md`](../specs/resources/plugins.md) documenta la configuración
   del generador. Coincide con el `pom.xml` (líneas 97–132) y con el código que produce
   `./mvnw clean generate-sources`: `SociosApi`, `ClasesApi`, `ReservasApi`, 9 DTO y 3 enums.
+- **Diagramas:** [`docs/tecnica/diagramas.md`](tecnica/diagramas.md) documenta los diagramas de secuencia de las
+  seis operaciones y el de componentes. Se revisaron contra el código: puertos y métodos llamados, orden de las
+  comprobaciones y excepción de cada rama, y su HTTP y `code` en ADR-0004. `reservarPlaza` coincide con
+  `architecture.md` §6. Los siete diagramas se renderizan sin errores con mermaid-cli 11.4.2.
 - **Registro de cambios de las specs:** [`specs/CHANGELOG.md`](../specs/CHANGELOG.md) está actualizado
   hasta `3ae2e46`. Tiene 23 entradas, todas con fecha, descripción, motivo, archivos modificados, compatibilidad
   del contrato y commits. Los 38 commits que modifican `specs/` (`git log -- specs/`, sin contar los del

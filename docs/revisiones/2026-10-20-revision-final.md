@@ -186,3 +186,6 @@ documentación y la trazabilidad hasta el código generado; no cambian esta conc
 La configuración del generador OpenAPI está documentada en
 [`specs/resources/plugins.md`](../../specs/resources/plugins.md) (añadido después de esta revisión, en `f2412b2`;
 ver [Actualización posterior](#actualización-posterior-a-la-revisión)).
+
+Los diagramas de secuencia de las seis operaciones y el de componentes están en
+[`docs/tecnica/diagramas.md`](../tecnica/diagramas.md) (añadido después de esta revisión).

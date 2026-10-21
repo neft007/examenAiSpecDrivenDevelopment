@@ -12,6 +12,7 @@
 | [api.md](api.md) | Endpoints, esquemas y respuestas de error. | [`gimnasio-openapi.yaml`](../../specs/api/gimnasio-openapi.yaml), ADR-0004, ADR-0007 |
 | [dominio.md](dominio.md) | Glosario, estados e invariantes. | [`domain-model.md`](../../specs/architecture/domain-model.md), [`lifecycle.md`](../../specs/domain/lifecycle.md), [`catalogs.md`](../../specs/domain/catalogs.md) |
 | [decisiones.md](decisiones.md) | Resumen de los ADR. | [`specs/adr/`](../../specs/adr/) |
+| [diagramas.md](diagramas.md) | Un diagrama de secuencia por `operationId` (invariantes y errores) y el de componentes adaptador → puerto → servicio. | [`architecture.md` §2 y §6](../../specs/architecture/architecture.md), [`gimnasio-openapi.yaml`](../../specs/api/gimnasio-openapi.yaml), ADR-0004, los `*Service` |
 | [pruebas.md](pruebas.md) | Estrategia de pruebas, cobertura por criterio de aceptación y colección de Postman. | [`traceability.md`](../../specs/traceability.md), `src/test/java`, `postman/` |
 
 ### Operaciones

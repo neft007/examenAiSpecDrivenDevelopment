@@ -35,6 +35,8 @@ Genera (o actualiza) {{SECCION}} a partir de las specs y el código.
      spec: anótala en docs/sync-report.md (ID, tipo, dónde, diferencia y acción sugerida) y avísame.
    - Actualiza el índice (docs/tecnica/README.md) y los enlaces entre documentos si añades o
      renombras archivos.
+   - Si cambia el flujo de un servicio (puertos llamados, orden de las comprobaciones o excepciones),
+     actualiza también su diagrama en docs/tecnica/diagramas.md.
    - Comprueba que todos los enlaces relativos existen.
    - Mantén actualizado specs/CHANGELOG.md: si desde su última entrada hay commits que cambian
      specs/ (git log -- specs/), añade una entrada con fecha, descripción, motivo, archivos de spec
