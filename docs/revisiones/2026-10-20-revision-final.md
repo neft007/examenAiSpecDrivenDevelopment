@@ -1,6 +1,8 @@
 # Revisión final con criterio · 2026-10-20
 
 > **Fecha:** 2026-10-20. **Commit revisado:** `26df59f` (código sin cambios desde `065cb8e`).
+> **Actualizada:** 2026-10-20 hasta `86828a6`, con los cambios posteriores del mismo día
+> (ver [Actualización posterior](#actualización-posterior-a-la-revisión)).
 > **Fuentes:** [`specs/`](../../specs/), [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md),
 > [`docs/sync-report.md`](../sync-report.md), [`PENDIENTES.md`](../../PENDIENTES.md) y `git log`.
 
@@ -89,6 +91,47 @@ Tareas abiertas en [`PENDIENTES.md`](../../PENDIENTES.md), todas fuera del alcan
 | Prueba de arquitectura con ArchUnit (ADR-0001). | Retirada del ADR en D-03; la regla se cumple pero no se verifica automáticamente. |
 | `Clase.cancelar` y `Clase.completar`. | Retirados del modelo en D-04 hasta que una historia los requiera. |
 
+## Actualización posterior a la revisión
+
+Después de `26df59f` se hicieron 46 commits el mismo día, hasta `86828a6`. Todos cambian documentación o
+specs en prosa: el código, el `pom.xml`, el contrato, la colección de Postman y los scripts de `tools/` no
+cambiaron. Por eso las verificaciones de arriba siguen siendo válidas; `spec_lint.py` y `spec_sync.py` se
+volvieron a ejecutar en `86828a6` con resultado OK (0 errores, 0 advertencias).
+
+### Evidencia de la entrega regenerada
+
+La evidencia (`surefire-resumen.md`, `spec_lint.txt`, `spec_sync.txt`) y la
+[matriz de trazabilidad](../entrega/matriz-trazabilidad.md) se regeneraron sobre `26df59f` (`c1b5bbe`),
+y [`docs/sync-report.md`](../sync-report.md) y [`docs/entrega/README.md`](../entrega/README.md) se
+alinearon con ese commit (`cb31a89`, `0d03aac`, `1317499`). La matriz no cambió de contenido: sus 88
+pruebas `USxx_CAyy_` existen y no falta ninguna.
+
+### Configuración del generador OpenAPI
+
+| Hallazgo | Resolución | Commit(s) |
+| :--- | :--- | :--- |
+| La configuración de `openapi-generator-maven-plugin` solo estaba en el `pom.xml`; `tech-stack.md` resumía cuatro parámetros. | Nuevo [`specs/resources/plugins.md`](../../specs/resources/plugins.md): plugin, qué genera, todos los parámetros (comprobados contra el código generado), cómo regenerar y que el código generado no se edita a mano. | `f2412b2` |
+| `plugins.md` podía divergir del `pom.xml` sin que nadie lo advirtiera. | Nota de mantenimiento en el propio documento. | `3ae2e46` |
+| El prompt de refactorización no decía que un cambio de contrato cambia las interfaces y DTO generados. | Paso de regeneración en el análisis de impacto del prompt 02. | `a209f6c` |
+
+`plugins.md` se enlazó desde la documentación derivada (README, `docs/tecnica/` con las cinco fichas de
+operación, `docs/entrega/`, `sync-report.md`, `tools/README.md`, `prompts/`, `CLAUDE.md`) y desde las specs
+técnicas: `traceability.md` (`2bb79ee`), `tech-stack.md` (`bf8fc46`), ADR-0006 (`6a3c22c`), índice de ADR
+(`bc16f99`), `architecture.md` §3 (`0656baf`), `conventions.md` (`64d8887`), `domain-model.md` §4
+(`9c24690`) y `catalogs.md` (`edfe0d1`). Ninguno de estos cambios añade reglas: describen comportamiento
+existente.
+
+**Decisiones de criterio:** no se enlazó desde `vision.md`, `requirements/functional.md`, las historias de
+usuario ni `domain/lifecycle.md`, porque describen el producto o reglas de negocio sin detalles técnicos (la
+relación con los enums ya la cubre `catalogs.md`). Tampoco desde el contrato, que leen los clientes de la API
+en Swagger UI, ni con un comentario en el `pom.xml`, que obligaría a tocar el build y a desplazar las líneas
+citadas en `plugins.md`.
+
+### Registro de cambios
+
+Cada cambio de `specs/` tiene su entrada en [`specs/CHANGELOG.md`](../../specs/CHANGELOG.md), que pasa de 13
+a 23 entradas; los 38 commits que modifican `specs/` aparecen en alguna. Ninguno afecta al contrato.
+
 ## Conclusión
 
 La V1 está **completa y coherente con sus specs**:
@@ -100,9 +143,11 @@ La V1 está **completa y coherente con sus specs**:
   la spec antes de tocar el código.
 
 Lo que queda abierto está registrado en `PENDIENTES.md`, justificado y fuera del alcance de V1. Ninguno
-de esos puntos contradice una spec vigente.
+de esos puntos contradice una spec vigente. Los cambios posteriores a la revisión solo mejoran la
+documentación y la trazabilidad hasta el código generado; no cambian esta conclusión.
 
 ## Referencias
 
 La configuración del generador OpenAPI está documentada en
-[`specs/resources/plugins.md`](../../specs/resources/plugins.md) (añadido después de esta revisión, en `f2412b2`).
+[`specs/resources/plugins.md`](../../specs/resources/plugins.md) (añadido después de esta revisión, en `f2412b2`;
+ver [Actualización posterior](#actualización-posterior-a-la-revisión)).
