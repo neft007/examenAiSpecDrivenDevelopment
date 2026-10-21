@@ -20,6 +20,15 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 
 ---
 
+## 2026-10-20 · Referencia a la configuración del generador en el índice de ADR
+
+- **Descripción:** `adr/README.md` añade, bajo la tabla, una nota que aclara que la configuración del
+  generador OpenAPI no es un ADR, enlaza `resources/plugins.md` y la relaciona con ADR-0006.
+- **Motivo:** evitar que la configuración del generador se busque o se trate como un ADR.
+- **Archivos de spec modificados:** `adr/README.md`.
+- **Compatibilidad del contrato:** no afecta.
+- **Commits:** `bc16f99` (design).
+
 ## 2026-10-20 · Referencia a la configuración del generador en ADR-0006
 
 - **Descripción:** la consecuencia de ADR-0006 que pedía verificar la compatibilidad de openapi-generator
