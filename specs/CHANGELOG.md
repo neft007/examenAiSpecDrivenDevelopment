@@ -20,6 +20,16 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 
 ---
 
+## 2026-10-20 · Mantenimiento de plugins.md frente al pom.xml
+
+- **Descripción:** `resources/plugins.md` añade una nota: si cambia la configuración del plugin en el
+  `pom.xml`, se actualiza el documento y las líneas que cita.
+- **Motivo:** `plugins.md` documenta una configuración que vive en el `pom.xml`; sin la nota, los dos
+  podían divergir sin que nadie lo advirtiera.
+- **Archivos de spec modificados:** `resources/plugins.md`.
+- **Compatibilidad del contrato:** no afecta.
+- **Commits:** `3ae2e46` (design).
+
 ## 2026-10-20 · Catálogos y enums generados
 
 - **Descripción:** `domain/catalogs.md` añade una nota final: los catálogos se reflejan, con los mismos
