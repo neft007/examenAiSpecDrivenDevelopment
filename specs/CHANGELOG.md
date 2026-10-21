@@ -20,6 +20,16 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 
 ---
 
+## 2026-10-20 · Código generado en los modelos por frontera
+
+- **Descripción:** `architecture/architecture.md` §3 indica que los `*Request`, `*Response`, los enums del
+  contrato y las interfaces `SociosApi`, `ClasesApi` y `ReservasApi` se generan en
+  `adapter.in.web.generated` al compilar, y enlaza `resources/plugins.md`.
+- **Motivo:** §3 decía que los DTO web eran "generados", pero no dónde ni cómo.
+- **Archivos de spec modificados:** `architecture/architecture.md`.
+- **Compatibilidad del contrato:** no afecta.
+- **Commits:** `0656baf` (design).
+
 ## 2026-10-20 · Referencia a la configuración del generador en el índice de ADR
 
 - **Descripción:** `adr/README.md` añade, bajo la tabla, una nota que aclara que la configuración del
