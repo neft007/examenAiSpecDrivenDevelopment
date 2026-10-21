@@ -67,6 +67,8 @@ un criterio concreto. Se cuentan en una línea `[INFO]`.
 Son validaciones textuales, pensadas para este proyecto:
 
 - `spec_sync.py` busca el nombre del `operationId` en el código fuente; no comprueba la firma ni que el
-  controlador implemente la interfaz generada. Eso lo garantiza el compilador.
+  controlador implemente la interfaz generada. Eso lo garantiza el compilador: con `skipDefaultInterface`
+  los métodos de `SociosApi`, `ClasesApi` y `ReservasApi` no tienen implementación por defecto
+  (configuración del generador en [`specs/resources/plugins.md`](../specs/resources/plugins.md)).
 - Los criterios se leen con el formato `**CA-01:**` de las historias actuales.
 - No validan el contrato contra el esquema oficial de OpenAPI.
