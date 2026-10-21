@@ -20,6 +20,15 @@ compatibilidad indica qué incremento habría correspondido según SemVer si el 
 
 ---
 
+## 2026-10-20 · Enlace a la configuración del generador desde el stack
+
+- **Descripción:** `architecture/tech-stack.md` añade, bajo la tabla del stack, una línea que remite a
+  `resources/plugins.md` para la configuración completa del generador de API.
+- **Motivo:** la fila "Generación de API" solo resume cuatro parámetros; el detalle está en `resources/plugins.md`.
+- **Archivos de spec modificados:** `architecture/tech-stack.md`.
+- **Compatibilidad del contrato:** no afecta.
+- **Commits:** `bf8fc46` (design).
+
 ## 2026-10-20 · Interfaz generada de cada operación en la matriz de trazabilidad
 
 - **Descripción:** `traceability.md` añade, bajo la tabla principal, una nota que relaciona cada
